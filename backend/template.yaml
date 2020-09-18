@@ -5,13 +5,40 @@ Description:
 #  set of parameters
 
 Globals:
+  Function:
+    Timeout: 300
 
-
-#Mappings:
-#  set of mappings
+Mappings:
+  Tables:
+    TOTAL_TABLE: byu-covid-cases
+    SIR_TABLE: byu-covid-sir
+    AVERAGE_TABLE: byu-daily-average
 
 Resources:
+  API:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration: True
+      StageName: v0
 
+  BYUCovidScrapingFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./functions/byu-covid-scraping
+      Description: Code to scrape the BYU COVID case information website as often as I'd like
+      Environment:
+        Variables:
+          TOTAL_TABLE: !FindInMap [Tables, TOTAL_TABLE]
+          SIR_TABLE: !FindInMap [Tables, SIR_TABLE]
+          AVERAGE_TABLE: !FindInMap [Tables, AVERAGE_TABLE]
+      Handler: lambda_function.handler
+      Policies:
+        - DynamoDBWritePolicy:
+            tableName: !FindInMap [Tables, TOTAL_TABLE]
+        - DynamoDBWritePolicy:
+            tableName: !FindInMap [Tables, SIR_TABLE]
+        - DynamoDBWritePolicy:
+            tableName: !FindInMap [Tables, AVERAGE_TABLE]
 
 Outputs:
   set of outputs

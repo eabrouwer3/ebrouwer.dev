@@ -153,9 +153,3 @@ def handler(event=None, context=None, callback=None):
             }
         }
     )
-
-
-#if __name__ == '__main__':
-#    handler()
-
-
