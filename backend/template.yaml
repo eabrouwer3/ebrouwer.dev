@@ -1,0 +1,17 @@
+Transform: AWS::Serverless-2016-10-31
+Description:
+  Backend API and Functions for ebrouwer.dev
+#Parameters:
+#  set of parameters
+
+Globals:
+
+
+#Mappings:
+#  set of mappings
+
+Resources:
+
+
+Outputs:
+  set of outputs
