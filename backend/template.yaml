@@ -1,18 +1,17 @@
 Transform: AWS::Serverless-2016-10-31
 Description:
   Backend API and Functions for ebrouwer.dev
-#Parameters:
-#  set of parameters
+Parameters:
+  TotalTable:
+    Type: String
+  SIRTable:
+    Type: String
+  AverageTable:
+    Type: String
 
 Globals:
   Function:
-    Timeout: 300
-
-Mappings:
-  Tables:
-    TOTAL_TABLE: byu-covid-cases
-    SIR_TABLE: byu-covid-sir
-    AVERAGE_TABLE: byu-daily-average
+    Timeout: 30
 
 Resources:
   API:
@@ -28,17 +27,42 @@ Resources:
       Description: Code to scrape the BYU COVID case information website as often as I'd like
       Environment:
         Variables:
-          TOTAL_TABLE: !FindInMap [Tables, TOTAL_TABLE]
-          SIR_TABLE: !FindInMap [Tables, SIR_TABLE]
-          AVERAGE_TABLE: !FindInMap [Tables, AVERAGE_TABLE]
+          TOTAL_TABLE: !Ref TotalTable
+          SIR_TABLE: !Ref SIRTable
+          AVERAGE_TABLE: !Ref AverageTable
+      Events:
+        DailyAtNoon:
+          Type: Schedule
+          Properties:
+            Description: Run Daily At Noon
+            Schedule: 'cron(0 12 * * ? *)'
       Handler: lambda_function.handler
       Policies:
         - DynamoDBWritePolicy:
-            tableName: !FindInMap [Tables, TOTAL_TABLE]
+            TableName: !Ref TotalTable
         - DynamoDBWritePolicy:
-            tableName: !FindInMap [Tables, SIR_TABLE]
+            TableName: !Ref SIRTable
         - DynamoDBWritePolicy:
-            tableName: !FindInMap [Tables, AVERAGE_TABLE]
+            TableName: !Ref AverageTable
+      Runtime: python3.8
 
-Outputs:
-  set of outputs
+  GetBYUCovidTotalsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./functions/get-byu-covid-totals
+      Description: Return list of BYU COVID totals by date
+      Environment:
+        Variables:
+          TABLE: !Ref TotalTable
+      Events:
+        APIEvent:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref API
+            Method: GET
+            Path: /byu-covid/totals
+      Handler: index.handler
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref TotalTable
+      Runtime: nodejs12.x

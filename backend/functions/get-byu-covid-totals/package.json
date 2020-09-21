@@ -1,0 +1,15 @@
+{
+  "name": "get-byu-covid-totals",
+  "version": "1.0.0",
+  "description": "Return list of BYU COVID totals by date",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.756.0",
+    "eslint": "^7.9.0"
+  },
+  "author": "Ethan Brouwer",
+  "license": "ISC"
+}
