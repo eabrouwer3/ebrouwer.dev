@@ -4,6 +4,7 @@ import {API} from "../utils";
 import * as D from 'date-fns';
 import * as d3 from 'd3';
 import {Column, Row} from "../styles/grid";
+import BarChart from "../components/charts/BarChart";
 
 interface CaseCount {
     date: string,
@@ -38,6 +39,9 @@ const BYUCovid: React.FC = () => {
                                 )
                             )}
                     </table>
+                </Column>
+                <Column>
+                    <BarChart data={totalCases.map(({date, caseCount}) => ({label: date, value: caseCount}))}/>
                 </Column>
             </Row>
         </>
