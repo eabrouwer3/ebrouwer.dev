@@ -3,8 +3,10 @@ import {useEffect, useState} from "react";
 import {API} from "../utils";
 import * as D from 'date-fns';
 import * as d3 from 'd3';
-import {Column, Row} from "../styles/grid";
+import {Col, Row} from "../styles/grid";
 import BarChart from "../components/charts/BarChart";
+import LineByDateChart from "../components/charts/LineByDateChart";
+import PlayChart from "../components/charts/PlayChart";
 
 interface CaseCount {
     date: string,
@@ -23,7 +25,7 @@ const BYUCovid: React.FC = () => {
     return (
         <>
             <Row>
-                <Column style={{width: '300px', justifyContent: 'center'}}>
+                <Col style={{width: '300px', justifyContent: 'center'}}>
                     <table>
                         <tr>
                             <td>Date</td>
@@ -39,10 +41,18 @@ const BYUCovid: React.FC = () => {
                                 )
                             )}
                     </table>
-                </Column>
-                <Column>
+                </Col>
+                <Col>
                     <BarChart data={totalCases.map(({date, caseCount}) => ({label: date, value: caseCount}))}/>
-                </Column>
+                </Col>
+            </Row>
+            <Row>
+                {/*<Column>*/}
+                {/*    <LineByDateChart data={totalCases.map(({date, caseCount}) => ({date: new Date(date), value: caseCount}))}/>*/}
+                {/*</Column>*/}
+                <Col>
+                    <PlayChart/>
+                </Col>
             </Row>
         </>
     );

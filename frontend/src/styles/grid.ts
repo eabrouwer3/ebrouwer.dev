@@ -1,14 +1,15 @@
 import styled from "styled-components";
 
+const Container = styled.div`
+  display: flex;
+`;
+
 const Row = styled.div`
   display: flex;
-  flex-direction: row;
 `;
 
-const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+const Col = styled.div`
+  flex: 1;
 `;
 
-export {Row, Column};
+export {Container, Row, Col};

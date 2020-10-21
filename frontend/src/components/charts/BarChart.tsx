@@ -16,7 +16,6 @@ const BarChart: React.FC<Props> = ({data}) => {
     const width = 1000,
           scaleFactor = (width - 100) / data.map(R.prop('value')).reduce((a, b) => Math.max(a, b), 0),
           barHeight = 30;
-    console.log(scaleFactor)
 
     useEffect(() => {
         if (chart) {
