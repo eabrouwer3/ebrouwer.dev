@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
-const Container = styled.div`
-  display: flex;
+const Body = styled.div`
+  flex: 1;
+  max-width: 800px;
 `;
 
 const Row = styled.div`
@@ -12,4 +13,4 @@ const Col = styled.div`
   flex: 1;
 `;
 
-export {Container, Row, Col};
+export {Body, Row, Col};

@@ -11,6 +11,9 @@ const AboutMe: React.FC = () => {
             </Row>
             <Row>
                 <Col>
+                    <div style={{height: '100vh'}}>
+                        &nbsp;
+                    </div>
                 </Col>
             </Row>
         </>
