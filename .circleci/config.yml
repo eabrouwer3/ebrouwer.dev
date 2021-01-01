@@ -14,7 +14,7 @@ jobs:
           cache-path: ~/project/frontend/node_modules
           override-ci-command: npm install
       - run: cd frontend && npm run build
-      - run: mkdir /tmp && mv frontend/build /tmp/build
+      - run: mv ~/project/frontend/build /tmp/build
       - save_cache:
           key: react-package
           paths:
