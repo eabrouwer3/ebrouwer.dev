@@ -14,21 +14,20 @@ jobs:
           cache-path: ~/project/frontend/node_modules
           override-ci-command: npm install
       - run: cd frontend && npm run build
-      - run: mv ~/project/frontend/build /tmp/build
-      - save_cache:
-          key: react-package
-          paths:
-            - /tmp/build
+      - persist_to_workspace:
+          root: ~/project/frontend
+          paths: [ build ]
   deploy-frontend:
     docker:
       - image: 'cimg/python:3.6'
     steps:
       - checkout
-      - restore_cache:
-          key: react-package
-      - s3/sync:
-          from: /tmp/build
-          to: 's3://ebrouwer.dev-website'
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: ls -la /tmp/workspace
+#      - s3/sync:
+#          from: /tmp/workspace/
+#          to: 's3://ebrouwer.dev-website'
 workflows:
   deploy-backend:
     jobs:
@@ -43,5 +42,4 @@ workflows:
       - build-frontend
       - deploy-frontend:
           context: Personal AWS
-          requires:
-            - build-frontend
+          requires: [ build-frontend ]
