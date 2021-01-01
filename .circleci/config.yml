@@ -24,10 +24,9 @@ jobs:
       - checkout
       - attach_workspace:
           at: /tmp/workspace
-      - run: ls -la /tmp/workspace
-#      - s3/sync:
-#          from: /tmp/workspace/
-#          to: 's3://ebrouwer.dev-website'
+      - s3/sync:
+          from: /tmp/workspace/build
+          to: 's3://ebrouwer.dev-website'
 workflows:
   deploy-backend:
     jobs:
