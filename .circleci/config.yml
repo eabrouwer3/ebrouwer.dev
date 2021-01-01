@@ -5,9 +5,8 @@ orbs:
   s3: circleci/aws-s3@2.0.0
 jobs:
   build-frontend:
-    executor:
-      name: node/default
-      tag: '12.2'
+    docker:
+      - image: 'cimg/node:12.2'
     steps:
       - checkout
       - node/install-packages:
