@@ -1,0 +1,39 @@
+version: 2.1
+jobs:
+  build-frontend:
+    executor:
+      name: node/default
+      tag: '12.2'
+    steps:
+      - checkout
+      - node/install-packages:
+          cache-path: ~/frontend/node_modules
+          override-ci-command: npm install
+      - run:
+          command: npm run build
+  deploy-frontend:
+    docker:
+      - image: 'cimg/python:3.6'
+    steps:
+      - checkout
+      - s3/sync:
+          from: ./frontend/build
+          to: 's3://ebrouwer.dev-website'
+orbs:
+  node: circleci/node@4.1.0
+  sam: circleci/aws-sam-serverless@2.1.0
+  s3: circleci/aws-s3@2.0.0
+workflows:
+  deploy-backend:
+    jobs:
+      - sam/deploy:
+          name: sam-deploy
+          stack-name: ebrouwerdev-backend
+          template: ./backend/template.yaml
+          s3-bucket: ebrouwer.dev-sam
+  deploy-frontend:
+    jobs:
+      - build-frontend
+      - deploy-frontend:
+          requires:
+            - build-frontend
