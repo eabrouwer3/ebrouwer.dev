@@ -9,7 +9,8 @@ jobs:
       - run:
           command: cd frontend
       - node/install-packages:
-          cache-path: ~/frontend/node_modules
+          app-dir: ~/project/frontend
+          cache-path: ~/project/frontend/node_modules
           override-ci-command: npm install
       - run:
           command: npm run build
@@ -27,7 +28,7 @@ jobs:
       - restore_cache:
           key: react-package
       - s3/sync:
-          from: ~/frontend/build
+          from: ~/project/frontend/build
           to: 's3://ebrouwer.dev-website'
 orbs:
   node: circleci/node@4.1.0
