@@ -4,7 +4,7 @@ interface Props {
 
 }
 
-const Portfolio: React.FC<Props> = ({}) => {
+const Portfolio: React.FC<Props> = () => {
     return (
         <>
             <h1>Portfolio</h1>
