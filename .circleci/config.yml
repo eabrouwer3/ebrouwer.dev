@@ -14,11 +14,11 @@ jobs:
           cache-path: ~/project/frontend/node_modules
           override-ci-command: npm install
       - run: cd frontend && npm run build
+      - run: chmod -R 777 ~/project
       - save_cache:
           key: react-package
           paths:
             - ~/project/frontend/build
-      - run: chmod -R 777 ~/project
   deploy-frontend:
     docker:
       - image: 'cimg/python:3.6'
