@@ -27,6 +27,7 @@ workflows:
   deploy-backend:
     jobs:
       - sam/deploy:
+          context: Personal AWS
           name: sam-deploy
           stack-name: ebrouwerdev-backend
           template: ./backend/template.yaml
@@ -35,5 +36,6 @@ workflows:
     jobs:
       - build-frontend
       - deploy-frontend:
+          context: Personal AWS
           requires:
             - build-frontend
