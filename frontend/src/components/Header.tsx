@@ -4,6 +4,9 @@ import styled from "styled-components";
 import {Link} from "react-router-dom";
 // @ts-ignore
 import Typewriter from "typewriter-effect";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import {useRef} from "react";
 
 const HeaderDiv = styled(Row)`
   color: white;
@@ -12,6 +15,7 @@ const HeaderDiv = styled(Row)`
   align-items: center;
   position: sticky;
   top: 0;
+  z-index: 2;
 `;
 
 const HeaderLink = styled(Link)`
@@ -66,7 +70,7 @@ const TypewriterContainer = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: 50px;
+  bottom: 0;
   left: 0;
   right: 0;
   z-index: 3;
@@ -82,12 +86,17 @@ const TypewriterContainer = styled.div`
   }
 `;
 
+// @ts-ignore
+const scrollToRef = (ref: React.Ref<any>) => window.scrollTo({left: 0, top: ref?.current.offsetTop, behavior: 'smooth'})
+
 const Header: React.FC = () => {
+    const headerRef = useRef(null);
+
     return (
         <>
             <div style={{height: '100vh', overflow: 'hidden', position: 'relative'}}>
                 <BackgroundImageOverlay/>
-                <BackgroundImageContainer><img src='/img/angels_landing.jpg' alt="Angel's Landing"/></BackgroundImageContainer>
+                <BackgroundImageContainer><img src='/img/angels-landing.jpg' alt="Angel's Landing"/></BackgroundImageContainer>
                 <TypewriterContainer>
                     Hi, I am
                     <h1 style={{margin: 0}}>Ethan Brouwer</h1>
@@ -99,9 +108,10 @@ const Header: React.FC = () => {
                             loop: true
                         }}
                     />
+                    <FontAwesomeIcon icon={faChevronDown} size={'lg'} style={{cursor: 'pointer'}} onClick={() => scrollToRef(headerRef)} />
                 </TypewriterContainer>
             </div>
-            <HeaderDiv>
+            <HeaderDiv ref={headerRef}>
                 <Col style={{paddingLeft: '20px'}}>
                     <h1 className='header'>Ethan Brouwer</h1>
                 </Col>

@@ -11,7 +11,7 @@ const AboutMe: React.FC = () => {
             </Row>
             <Row>
                 <Col>
-                    <div style={{height: '100vh'}}>
+                    <div>
                         &nbsp;
                     </div>
                 </Col>

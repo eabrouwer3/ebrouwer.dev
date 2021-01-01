@@ -3,6 +3,7 @@ import styled from "styled-components";
 const Body = styled.div`
   flex: 1;
   max-width: 800px;
+  padding: 0 10px;
 `;
 
 const Row = styled.div`
