@@ -1,4 +1,8 @@
 version: 2.1
+orbs:
+  node: circleci/node@4.1.0
+  sam: circleci/aws-sam-serverless@2.1.0
+  s3: circleci/aws-s3@2.0.0
 jobs:
   build-frontend:
     executor:
@@ -15,6 +19,7 @@ jobs:
           key: react-package
           paths:
             - ~/project/frontend/build
+      - run: chmod -R 777 ~/project
   deploy-frontend:
     docker:
       - image: 'cimg/python:3.6'
@@ -25,10 +30,6 @@ jobs:
       - s3/sync:
           from: ~/project/frontend/build
           to: 's3://ebrouwer.dev-website'
-orbs:
-  node: circleci/node@4.1.0
-  sam: circleci/aws-sam-serverless@2.1.0
-  s3: circleci/aws-s3@2.0.0
 workflows:
   deploy-backend:
     jobs:
