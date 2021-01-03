@@ -12,10 +12,10 @@
 .idea/**/dictionaries
 .idea/**/shelf
 
-# Generated files
+# Generated documents
 .idea/**/contentModel.xml
 
-# Sensitive or high-churn files
+# Sensitive or high-churn documents
 .idea/**/dataSources/
 .idea/**/dataSources.ids
 .idea/**/dataSources.local.xml
@@ -29,7 +29,7 @@
 .idea/**/libraries
 
 # Gradle and Maven with auto-import
-# When using Gradle or Maven with auto-import, you should exclude module files,
+# When using Gradle or Maven with auto-import, you should exclude module documents,
 # since they will be recreated, and may cause churn.  Uncomment if using
 # auto-import.
 # .idea/artifacts

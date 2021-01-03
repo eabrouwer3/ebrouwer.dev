@@ -1,7 +1,8 @@
 import * as React from "react";
 import {Col, Row, Body} from "../styles/grid";
-import {Button, FormRow, Input, Label, Textarea} from "../styles/form";
+import {Alert, Button, FormRow, Input, Label, Textarea} from "../styles/form";
 import {useState} from "react";
+import {send} from "emailjs-com";
 
 interface Props {
 
@@ -12,11 +13,31 @@ const ContactMe: React.FC<Props> = () => {
     const [email, setEmail] = useState<string>('');
     const [phone, setPhone] = useState<string>('');
     const [message, setMessage] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string>();
+    const [notification, setNotification] = useState<string>();
+
+    const onSuccess = () => {
+        setName('');
+        setEmail('');
+        setPhone('');
+        setMessage('');
+        setNotification('Successfully sent your message!');
+    };
+    const onFail = (err: any) => {
+        console.error(err);
+        setError("Something went wrong while sending your email. If the form isn't working, please send your email directly to me@ebrouwer.dev.")
+    };
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-
+        setNotification(undefined);
+        setError(undefined);
+        setLoading(true);
+        send('service_rz9caa2', 'template_ij7vj9x', { name, email, phone, message }, 'user_rC6SJrMVgjKyzpUJir367')
+            .then(onSuccess)
+            .catch(onFail)
+            .finally(() => setLoading(false));
     }
 
     return (
@@ -28,6 +49,12 @@ const ContactMe: React.FC<Props> = () => {
                             <h1>Contact Me</h1>
                         </Col>
                     </FormRow>
+                    {notification && <FormRow>
+                        <Alert>{notification}</Alert>
+                    </FormRow>}
+                    {error && <FormRow>
+                        <Alert error>{error}</Alert>
+                    </FormRow>}
                     <FormRow>
                         <Col>
                             <Label>
@@ -60,7 +87,7 @@ const ContactMe: React.FC<Props> = () => {
                     </FormRow>
                     <Row>
                         <Col>
-                            <Button type='submit'>Send</Button>
+                            <Button type='submit' disabled={loading}>Send</Button>
                         </Col>
                     </Row>
                 </form>

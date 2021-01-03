@@ -5,8 +5,9 @@ import {Link} from "react-router-dom";
 // @ts-ignore
 import Typewriter from "typewriter-effect";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import {useRef} from "react";
+import headerImage from '../images/angels-landing.jpg';
 
 const HeaderDiv = styled(Row)`
   color: white;
@@ -96,14 +97,14 @@ const Header: React.FC = () => {
         <>
             <div style={{height: '100vh', overflow: 'hidden', position: 'relative'}}>
                 <BackgroundImageOverlay/>
-                <BackgroundImageContainer><img src='/img/angels-landing.jpg' alt="Angel's Landing"/></BackgroundImageContainer>
+                <BackgroundImageContainer><img src={headerImage} alt="Angel's Landing"/></BackgroundImageContainer>
                 <TypewriterContainer>
                     Hi, I am
                     <h1 style={{margin: 0}}>Ethan Brouwer</h1>
                     I am
                     <Typewriter
                         options={{
-                            strings: ['a Husband.', 'a Father.', 'a Code Ninja.', 'a World Traveler.'],
+                            strings: ['a Husband', 'a Father', 'a Code Ninja', 'a World Traveler'],
                             autoStart: true,
                             loop: true
                         }}

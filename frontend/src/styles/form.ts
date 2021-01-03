@@ -10,7 +10,7 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-  width: 100%;
+  width: calc(100% - 20px);
   margin: 5px 0;
   height: 20px;
   border: none;
@@ -25,7 +25,7 @@ const Input = styled.input`
 `;
 
 const Textarea = styled.textarea`
-  width: 100%;
+  width: calc(100% - 20px);
   margin: 5px 0;
   height: 200px;
   resize: none;
@@ -53,10 +53,20 @@ const Button = styled.button`
   &:hover {
     background: #1C5DDD;
   }
-  
   &:focus {
     outline: none;
   }
+  &:disabled {
+    background: #8d8d8d;
+    cursor: not-allowed;
+  }
 `;
 
-export {FormRow, Label, Input, Textarea, Button};
+const Alert = styled.div<{error?: boolean}>`
+  width: 100%;
+  background: ${props => props.error ? '#ff6666' : '#43aeff'};
+  padding: 5px;
+  border-radius: 3px;
+`;
+
+export {FormRow, Label, Input, Textarea, Button, Alert};

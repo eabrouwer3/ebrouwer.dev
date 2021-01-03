@@ -7,6 +7,12 @@ import Resume from "./pages/Resume";
 import Portfolio from "./pages/Portfolio";
 import ContactMe from "./pages/ContactMe";
 import Footer from "./components/Footer";
+import PDF from "./pages/portfolio/PDF";
+
+// @ts-ignore
+import trafficPDF from './documents/traffic.pdf';
+// @ts-ignore
+import climbingPDF from './documents/climbing.pdf';
 
 function App() {
     return (
@@ -17,6 +23,8 @@ function App() {
                     <Route path={'/'} exact={true}><AboutMe/></Route>
                     <Route path={'/resume'} exact={true}><Resume/></Route>
                     <Route path={'/portfolio'} exact={true}><Portfolio/></Route>
+                    <Route path={'/portfolio/traffic'} exact={true}><PDF title={'Modeling Traffic Flow'} document={trafficPDF}/></Route>
+                    <Route path={'/portfolio/climbing'} exact={true}><PDF title={'Predicting Climbing Champions'} document={climbingPDF}/></Route>
                     <Route path={'/contact'} exact={true}><ContactMe/></Route>
                     {/*<Route path={'/byu-covid'} exact={true}><BYUCovid/></Route>*/}
                 </Switch>
