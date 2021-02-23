@@ -86,6 +86,16 @@ const Portfolio: React.FC = () => {
                         machine learning techniques trained on data from IFSC world cup climbers to predict ranks in later
                         years.
                     </SummaryCard>
+                    <SummaryCard page={'/portfolio/blockchain'} name={'Slide Deck about the Blockchain'}>
+                        Working at TaxBit, we sometimes do presentations during lunch about different technical things.
+                        We like to call it our "Lunch and Learn". I was tasked with one of the first presentations, and
+                        because we work so closely with Blockchain technology, I decided to help out some of the company
+                        with understanding the Blockchain a little better.
+                    </SummaryCard>
+                    <SummaryCard page={'/portfolio/react-useeffect'} name={'Slide Deck about React\'s useEffect()'}>
+                        At one of our dev lunches, I gave a short presentation on React's usEffect() hook, trying to
+                        help people understand what its use is and what some common gotchas are.
+                    </SummaryCard>
                 </Body>
             </Row>
         </>
