@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import PDF from "./pages/portfolio/PDF";
 import SlideDeck from "./pages/portfolio/SlideDeck";
 import ACMECountdown from "./pages/ACMECountdown";
+import BYUCryptoClubPresentation from "./pages/byu-crypto-presentation/BYUCryptoClubPresentation";
 
 // @ts-ignore
 import trafficPDF from './documents/traffic.pdf';
@@ -20,9 +21,8 @@ function App() {
     return (
         <Router>
             <Switch>
-                <Route path={'/acme-countdown'} exact={true}>
-                    <ACMECountdown/>
-                </Route>
+                <Route path={'/acme-countdown'} exact={true}><ACMECountdown/></Route>
+                <Route path={'/byu-crypto-club-taxbit'} exact={true}><BYUCryptoClubPresentation/></Route>
                 <Route>
                     <Header/>
                     <div style={{minHeight: '100vh'}}>
