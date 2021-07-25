@@ -20,49 +20,77 @@ Resources:
       CorsConfiguration: True
       StageName: v0
 
-  BYUCovidScrapingFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: ./functions/byu-covid-scraping
-      Description: Code to scrape the BYU COVID case information website as often as I'd like
-      Environment:
-        Variables:
-          TOTAL_TABLE: !Ref TotalTable
-          SIR_TABLE: !Ref SIRTable
-          AVERAGE_TABLE: !Ref AverageTable
-      Events:
-        DailyAtNoon:
-          Type: Schedule
-          Properties:
-            Description: Run Daily At Noon
-            Schedule: 'cron(0 12 * * ? *)'
-      Handler: lambda_function.handler
-      Policies:
-        - DynamoDBWritePolicy:
-            TableName: !Ref TotalTable
-        - DynamoDBWritePolicy:
-            TableName: !Ref SIRTable
-        - DynamoDBWritePolicy:
-            TableName: !Ref AverageTable
-      Runtime: python3.8
+# Don't need these anymore, but keeping them here for now
+#  BYUCovidScrapingFunction:
+#    Type: AWS::Serverless::Function
+#    Properties:
+#      CodeUri: ./functions/byu-covid-scraping
+#      Description: Code to scrape the BYU COVID case information website as often as I'd like
+#      Environment:
+#        Variables:
+#          TOTAL_TABLE: !Ref TotalTable
+#          SIR_TABLE: !Ref SIRTable
+#          AVERAGE_TABLE: !Ref AverageTable
+#      Events:
+#        DailyAtNoon:
+#          Type: Schedule
+#          Properties:
+#            Description: Run Daily At Noon
+#            Schedule: 'cron(0 12 * * ? *)'
+#      Handler: lambda_function.handler
+#      Policies:
+#        - DynamoDBWritePolicy:
+#            TableName: !Ref TotalTable
+#        - DynamoDBWritePolicy:
+#            TableName: !Ref SIRTable
+#        - DynamoDBWritePolicy:
+#            TableName: !Ref AverageTable
+#      Runtime: python3.8
+#
+#  GetBYUCovidTotalsFunction:
+#    Type: AWS::Serverless::Function
+#    Properties:
+#      CodeUri: ./functions/get-byu-covid-totals
+#      Description: Return list of BYU COVID totals by date
+#      Environment:
+#        Variables:
+#          TABLE: !Ref TotalTable
+#      Events:
+#        APIEvent:
+#          Type: HttpApi
+#          Properties:
+#            ApiId: !Ref API
+#            Method: GET
+#            Path: /byu-covid/totals
+#      Handler: index.handler
+#      Policies:
+#        - DynamoDBReadPolicy:
+#            TableName: !Ref TotalTable
+#      Runtime: nodejs12.x
 
-  GetBYUCovidTotalsFunction:
+  EmailHandlerFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./functions/get-byu-covid-totals
-      Description: Return list of BYU COVID totals by date
-      Environment:
-        Variables:
-          TABLE: !Ref TotalTable
-      Events:
-        APIEvent:
-          Type: HttpApi
-          Properties:
-            ApiId: !Ref API
-            Method: GET
-            Path: /byu-covid/totals
+      CodeUri: ./functions/email-handler-function
+      Description: 'Handle incoming emails to me@ebrouwer.dev'
       Handler: index.handler
       Policies:
-        - DynamoDBReadPolicy:
-            TableName: !Ref TotalTable
-      Runtime: nodejs12.x
+        - SESCrudPolicy:
+            IdentityName: 'me@ebrouwer.dev'
+      Runtime: nodejs14.x
+
+  SESRules:
+    Type: AWS::SES::ReceiptRule
+    Properties:
+      Actions:
+        - S3Action:
+            BucketName: ebrouwerdev-emails
+            ObjectKeyPrefix: 'me/'
+        - LambdaAction:
+            FunctionArn: !GetAtt EmailHandlerFunction.Arn
+            InvocationType: Event
+      Enabled: true
+      Recipients:
+        - 'me@ebrouwer.dev'
+      ScanEnabled: true
+
