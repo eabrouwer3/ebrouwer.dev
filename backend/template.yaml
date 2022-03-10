@@ -88,29 +88,29 @@ Resources:
       Handler: index.handler
       Runtime: nodejs14.x
 
-  EmailHandlerFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: ./functions/email-handler-function
-      Description: 'Handle incoming emails to me@ebrouwer.dev'
-      Handler: index.handler
-      Policies:
-        - SESCrudPolicy:
-            IdentityName: 'me@ebrouwer.dev'
-      Runtime: nodejs14.x
-
-  SESRules:
-    Type: AWS::SES::ReceiptRule
-    Properties:
-      Actions:
-        - S3Action:
-            BucketName: ebrouwerdev-emails
-            ObjectKeyPrefix: 'me/'
-        - LambdaAction:
-            FunctionArn: !GetAtt EmailHandlerFunction.Arn
-            InvocationType: Event
-      Enabled: true
-      Recipients:
-        - 'me@ebrouwer.dev'
-      ScanEnabled: true
+#  EmailHandlerFunction:
+#    Type: AWS::Serverless::Function
+#    Properties:
+#      CodeUri: ./functions/email-handler-function
+#      Description: 'Handle incoming emails to me@ebrouwer.dev'
+#      Handler: index.handler
+#      Policies:
+#        - SESCrudPolicy:
+#            IdentityName: 'me@ebrouwer.dev'
+#      Runtime: nodejs14.x
+#
+#  SESRules:
+#    Type: AWS::SES::ReceiptRule
+#    Properties:
+#      Actions:
+#        - S3Action:
+#            BucketName: ebrouwerdev-emails
+#            ObjectKeyPrefix: 'me/'
+#        - LambdaAction:
+#            FunctionArn: !GetAtt EmailHandlerFunction.Arn
+#            InvocationType: Event
+#      Enabled: true
+#      Recipients:
+#        - 'me@ebrouwer.dev'
+#      ScanEnabled: true
 
