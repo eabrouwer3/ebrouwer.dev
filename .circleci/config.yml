@@ -36,6 +36,7 @@ workflows:
           stack-name: ebrouwerdev-backend
           template: ./backend/template.yaml
           s3-bucket: ebrouwer.dev-sam
+          parameter-overrides: EtherscanApiKey=$ETHERSCAN_API_KEY
   deploy-frontend:
     jobs:
       - build-frontend

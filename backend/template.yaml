@@ -2,12 +2,12 @@ Transform: AWS::Serverless-2016-10-31
 Description:
   Backend API and Functions for ebrouwer.dev
 Parameters:
-  TotalTable:
-    Type: String
-  SIRTable:
-    Type: String
-  AverageTable:
-    Type: String
+#  TotalTable:
+#    Type: String
+#  SIRTable:
+#    Type: String
+#  AverageTable:
+#    Type: String
   EtherscanApiKey:
     Type: String
 
