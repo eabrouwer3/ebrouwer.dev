@@ -34,14 +34,12 @@ jobs:
       name: sam/default
     steps:
       - checkout
-      - sam/install:
-          working_directory: ~/project/backend
+      - run: mv ~/project/backend/* ~/project
+      - sam/install
       - sam/build:
-          working_directory: ~/project/backend
           template: ./template.yaml
           use-container: false
       - sam/deploy:
-          working_directory: ~/project/backend
           parameter-overrides: EtherscanApiKey=$ETHERSCAN_API_KEY
           s3-bucket: ebrouwer.dev-sam
           stack-name: ebrouwerdev-backend
