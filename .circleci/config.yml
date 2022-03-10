@@ -6,7 +6,6 @@ orbs:
 
 jobs:
   build-frontend:
-    working_directory: ~/project/backend
     docker:
       - image: 'cimg/node:12.2'
     steps:
@@ -34,6 +33,7 @@ workflows:
   deploy-backend:
     jobs:
       - sam/deploy:
+          working_directory: ~/project/backend
           context: Personal AWS
           name: sam-deploy
           stack-name: ebrouwerdev-backend
