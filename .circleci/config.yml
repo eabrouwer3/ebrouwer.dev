@@ -3,8 +3,10 @@ orbs:
   node: circleci/node@4.1.0
   sam: circleci/aws-sam-serverless@2.1.0
   s3: circleci/aws-s3@2.0.0
+
 jobs:
   build-frontend:
+    working_directory: ~/project/backend
     docker:
       - image: 'cimg/node:12.2'
     steps:
@@ -27,6 +29,7 @@ jobs:
       - s3/sync:
           from: /tmp/workspace/build
           to: 's3://ebrouwer.dev-website'
+
 workflows:
   deploy-backend:
     jobs:
@@ -34,7 +37,7 @@ workflows:
           context: Personal AWS
           name: sam-deploy
           stack-name: ebrouwerdev-backend
-          template: ./backend/template.yaml
+          template: template.yaml
           s3-bucket: ebrouwer.dev-sam
           parameter-overrides: EtherscanApiKey=$ETHERSCAN_API_KEY
   deploy-frontend:
