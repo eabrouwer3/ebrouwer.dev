@@ -1,0 +1,14 @@
+{
+  "name": "gas-tracker",
+  "version": "1.0.0",
+  "description": "Return current gas prices",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "node-fetch": "2.6.7"
+  },
+  "author": "Ethan Brouwer",
+  "license": "ISC"
+}
