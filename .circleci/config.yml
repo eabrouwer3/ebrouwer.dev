@@ -32,8 +32,7 @@ jobs:
   deploy-backend:
     working_directory: ~/project/backend
     executor:
-      machine-image: 'ubuntu-2004:202010-01'
-      name: default
+      name: sam/default
     steps:
       - checkout
       - sam/install
