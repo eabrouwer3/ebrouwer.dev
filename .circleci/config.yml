@@ -29,17 +29,27 @@ jobs:
           from: /tmp/workspace/build
           to: 's3://ebrouwer.dev-website'
 
+  deploy-backend:
+    working_directory: ~/project/backend
+    executor:
+      machine-image: 'ubuntu-2004:202010-01'
+      name: default
+    steps:
+      - checkout
+      - sam/install
+      - sam/build:
+          template: ./template.yaml
+          use-container: false
+      - sam/deploy:
+          parameter-overrides: EtherscanApiKey=$ETHERSCAN_API_KEY
+          s3-bucket: ebrouwer.dev-sam
+          stack-name: ebrouwerdev-backend
+
 workflows:
   deploy-backend:
     jobs:
-      - sam/deploy:
-          working_directory: ~/project/backend
+      - deploy-backend:
           context: Personal AWS
-          name: sam-deploy
-          stack-name: ebrouwerdev-backend
-          template: template.yaml
-          s3-bucket: ebrouwer.dev-sam
-          parameter-overrides: EtherscanApiKey=$ETHERSCAN_API_KEY
   deploy-frontend:
     jobs:
       - build-frontend
