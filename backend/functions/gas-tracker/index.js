@@ -33,4 +33,3 @@ exports.handler = async () => {
             + `:turtle: *Slow*: ${SafeGasPrice} Gwei`,
     };
 };
-d
