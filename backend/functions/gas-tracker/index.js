@@ -28,10 +28,8 @@ exports.handler = async () => {
 
     return {
         statusCode: 200,
-        body: JSON.stringify({
-            text: `:zap: *Fast*: ${FastGasPrice} Gwei\n` +
-                + `:walking: *Average*: ${ProposeGasPrice} Gwei\n`
-                + `:turtle: *Slow*: ${SafeGasPrice} Gwei`,
-        }),
+        body: `:zap: *Fast*: ${FastGasPrice} Gwei\n` +
+            + `:walking: *Average*: ${ProposeGasPrice} Gwei\n`
+            + `:turtle: *Slow*: ${SafeGasPrice} Gwei`,
     };
 };
