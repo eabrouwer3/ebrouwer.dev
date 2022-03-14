@@ -15,8 +15,14 @@ exports.handler = async () => {
 
     if (status === '0' && message === 'NOTOK') {
         return {
-            statusCode: 500,
-            body: JSON.stringify(result),
+            statusCode: 200,
+            body: JSON.stringify({
+                text: 'Something went wrong... please try again later',
+                response_type: 'ephemeral',
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+            }
         }
     }
 
@@ -26,10 +32,18 @@ exports.handler = async () => {
         FastGasPrice,
     } = result;
 
+    const text = `:zap: *Fast*: ${FastGasPrice} Gwei\n`
+                 + `:walking: *Average*: ${ProposeGasPrice} Gwei\n`
+                 + `:turtle: *Slow*: ${SafeGasPrice} Gwei`;
+
     return {
         statusCode: 200,
-        body: `:zap: *Fast*: ${FastGasPrice} Gwei\n`
-            + `:walking: *Average*: ${ProposeGasPrice} Gwei\n`
-            + `:turtle: *Slow*: ${SafeGasPrice} Gwei`,
+        body: JSON.stringify({
+            text,
+            response_type: 'in_channel',
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+        }
     };
 };
