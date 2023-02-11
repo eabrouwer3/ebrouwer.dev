@@ -12,6 +12,6 @@ const CustomLink: React.FC<React.HTMLProps<HTMLAnchorElement> & {external?: bool
   );
 };
 
-const ExternalLink: React.FC<React.HTMLProps<HTMLAnchorElement>> = (props) => <CustomLink {...props} external />
+const ExternalLink: React.FC<React.HTMLProps<HTMLAnchorElement>> = (props) => <CustomLink {...props} external={true} />
 
 export { CustomLink, ExternalLink };

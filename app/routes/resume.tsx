@@ -5,7 +5,6 @@ import taxbitLogo from "~/images/taxbit_full_logo.png";
 import learningbridgeLogo from "~/images/LearningBridge_logo_rgb.jpg";
 import perfectPitchLogo from "~/images/perfectpitch-logo.png";
 import byuLogo from "~/images/byu-logo-blue.png";
-import uvuLogo from "~/images/uvu-logo.png";
 
 interface EventProps {
   current?: boolean;
@@ -64,32 +63,46 @@ const Section: React.FC<SectionProps> = ({Icon, title, children}) => {
 export default function Resume() {
   return (
     <>
-      <h1 className="font-header text-4xl pb-6 pt-12 tracking-widest">Resume</h1>
+      <div className="flex pb-6 pt-12">
+        <div className="flex flex-col justify-center grow">
+          <h1 className="font-header text-4xl tracking-widest block">Resume</h1>
+        </div>
+        <div className="shrink text-right">
+          <a
+            className="text-skalex py-4 px-6 uppercase font-bold border border-transparent border-solid no-underline block visited:text-skalex focus:text-skalex hover:text-skalex hover:border-skalex"
+            href="/resume.pdf">
+            Download PDF
+          </a>
+        </div>
+      </div>
       <Section Icon={Briefcase} title={'Work History'}>
-        <Event startDate={'April 2019'}
-               current
-               title={'TaxBit'}
-               logo={<CenteredLogoLink href={'https://taxbit.com/'} img={taxbitLogo} alt={'TaxBit Logo'}/>}
+        <Event
+          startDate={'April 2019'}
+          current
+          title={'TaxBit'}
+          logo={<CenteredLogoLink href={'https://taxbit.com/'} img={taxbitLogo} alt={'TaxBit Logo'}/>}
         >
           As employee number 2 at <ExternalLink href={'https://taxbit.com/'}>TaxBit</ExternalLink>, I've
           helped take the company from two to over 200 employees. From a couple thousand in sales to millions.
           TaxBit builds cryptocurrency tax and accounting solutions for enterprises, consumers, and the
           government.
           <br/><br/>
-          While here, I've headed numerous efforts.
-          <ul className="list-disc indent-4">
+          While here, I've headed numerous impactful efforts.
+          <ul className="list-disc ml-8">
             <li>I completely rebuilt our frontend app, taking our old Angular 1 MVP and turning it into a
                 scalable, responsive, and modern React web app. And I did that in less than 6 months
                 without ever having written in React in my life.</li>
-            <li>I built the API </li>
+            <li>I built our Public facing API from scratch, using AWS serverless services such as Lambda
+                and API Gateway.</li>
           </ul>
           My coworkers sometimes like to call me Swiss (short for Swiss Army Knife) because there isn't much
           I can't tackle.
         </Event>
-        <Event startDate={'March 2018'}
-               endDate={'March 2019'}
-               title={'LearningBridge Inc.'}
-               logo={<CenteredLogoLink href={'https://www2.learningbridge.com/'} img={learningbridgeLogo} alt={'LearningBridge Logo'}/>}
+        <Event
+          startDate={'March 2018'}
+          endDate={'March 2019'}
+          title={'LearningBridge Inc.'}
+          logo={<CenteredLogoLink href={'https://www2.learningbridge.com/'} img={learningbridgeLogo} alt={'LearningBridge Logo'}/>}
         >
           Upon returning from my two year mission in Russia, I found a position as a developer
           at <ExternalLink href={'https://www2.learningbridge.com'}>LearningBridge</ExternalLink>.
@@ -100,10 +113,11 @@ export default function Resume() {
           I was tasked with updating a large portion of the older UI to be responsive. I was also tasked
           with updating a number of the PDF generators to be much quicker and easier to modify.
         </Event>
-        <Event startDate={'March 2015'}
-               endDate={'December 2015'}
-               title={'Perfect Pitch Tech'}
-               logo={<CenteredLogoLink href={'https://perfectpitchtech.com/'} img={perfectPitchLogo} alt={'Perfect Pitch Logo'}/>}
+        <Event
+          startDate={'March 2015'}
+          endDate={'December 2015'}
+          title={'Perfect Pitch Tech'}
+          logo={<CenteredLogoLink href={'https://perfectpitchtech.com/'} img={perfectPitchLogo} alt={'Perfect Pitch Logo'}/>}
         >
           When I was just 17 years old and just barely out of High School, a friend put me in contact
           with <ExternalLink href={'https://perfectpitchtech.com/'}>Perfect Pitch</ExternalLink>'s CTO
@@ -119,21 +133,18 @@ export default function Resume() {
         </Event>
       </Section>
       <Section Icon={GraduationCap} title={'Education'}>
-        <Event startDate={'2018'}
-               endDate={'2022'}
-               title={'Brigham Young University (BYU)'}
-               logo={<CenteredLogoLink href={'https://byu.edu/'} img={byuLogo} alt={'BYU Logo'}/>}
+        <Event
+          startDate={'2018'}
+          endDate={'2022'}
+          title={'Brigham Young University (BYU)'}
+          logo={<CenteredLogoLink href={'https://byu.edu/'} img={byuLogo} alt={'BYU Logo'}/>}
         >
-          I now go to BYU and it is awesome.
-        </Event>
-        <Event startDate={'2015'}
-               endDate={'2018'}
-               title={'Utah Valley University (UVU)'}
-               logo={<CenteredLogoLink href={'https://uvu.edu/'} img={uvuLogo} alt={'UVU Logo'}/>}>
-          I went to school at UVU for a while. It was pretty cool, I guess.
+          I graduated from Brigham Young University (Provo) in 2022 with a BS in Applied and Computational
+          Mathematics with a concentration in Computer Science.
         </Event>
         <Event startDate={'2012'} endDate={'2014'} title={'International Baccalaureate (IB) Diploma'}>
-          I went to high school at QASMT for a while. I did the IB program. I'm pretty smart.
+          I went to high school in Brisbane, Australia at Queensland Academy of Science Mathematics and
+          Technology (QASMT). I graduated with an International Baccalaureate (IB) Diploma in 2014.
         </Event>
       </Section>
       <Section Icon={Handshake} title={'Volunteer Experience'}>

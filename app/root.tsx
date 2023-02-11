@@ -32,7 +32,7 @@ export default function App() {
       <body className="font-sans">
         <Header />
         <div className="flex justify-center">
-          <div className="grow max-w-3xl py-0 px-2.5">
+          <div className="grow min-h-screen max-w-3xl pt-0 pb-12 px-2.5">
             <Outlet />
           </div>
         </div>
