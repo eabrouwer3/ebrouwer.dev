@@ -1,4 +1,4 @@
-import headshot from "~/images/headshot.jpg";
+import headshot from "~/assets/images/headshot.jpg";
 
 export default function Index() {
   return (

@@ -2,7 +2,7 @@ import { Link } from "@remix-run/react";
 import { useRef, useState } from "react";
 import Typewriter from "typewriter-effect";
 import { ChevronDown, Hamburger } from "~/components/icons";
-import headerImage from "~/images/angels-landing.jpg";
+import headerImage from "~/assets/images/angels-landing.jpg";
 
 // @ts-ignore
 const scrollToRef = (ref: React.Ref<any>) => window.scrollTo({ left: 0, top: ref?.current.offsetTop, behavior: 'smooth' })

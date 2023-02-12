@@ -1,10 +1,10 @@
 import CenteredLogoLink from "~/components/CenteredLogoLink";
 import { ExternalLink } from "~/components/CustomLink";
 import { Briefcase, Circle, GraduationCap, Handshake, SVGFC } from "~/components/icons";
-import taxbitLogo from "~/images/taxbit_full_logo.png";
-import learningbridgeLogo from "~/images/LearningBridge_logo_rgb.jpg";
-import perfectPitchLogo from "~/images/perfectpitch-logo.png";
-import byuLogo from "~/images/byu-logo-blue.png";
+import taxbitLogo from "~/assets/images/taxbit_full_logo.png";
+import learningbridgeLogo from "~/assets/images/LearningBridge_logo_rgb.jpg";
+import perfectPitchLogo from "~/assets/images/perfectpitch-logo.png";
+import byuLogo from "~/assets/images/byu-logo-blue.png";
 
 interface EventProps {
   current?: boolean;
