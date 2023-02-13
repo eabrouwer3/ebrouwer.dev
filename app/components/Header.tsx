@@ -34,7 +34,7 @@ export const Header: React.FC = () => {
         </div>
         <div className="flex flex-col justify-center items-center absolute inset-x-0 bottom-0 z-20 text-3xl text-white">
           Hi, I am
-          <h1 className="font-header m-0 text-6xl font-medium">Ethan Brouwer</h1>
+          <h1 className="font-header m-0 text-6xl font-mediumn text-center">Ethan Brouwer</h1>
           I am
           <Typewriter
             options={{
