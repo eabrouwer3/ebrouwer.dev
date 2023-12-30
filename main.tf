@@ -1,23 +1,8 @@
 provider "google" {}
 
-variable "gcp_billing_account" {
-  type = string
-  description = "The billing account id to use for the project (e.g. ABCDEF-ABCDEF-ABCDEF)"
-}
-
 variable "gcp_account_email" {
-    type = string
-    description = "The email address of the service account to use for the project"
-}
-
-module "project-factory" {
-  source  = "terraform-google-modules/project-factory/google"
-  version = "~> 14.4"
-
-  name                 = "game-servers"
-  random_project_id    = true
-  org_id               = ""
-  billing_account      = var.gcp_billing_account
+  type = string
+  description = "The email address of the service account to use for the service"
 }
 
 locals {
@@ -172,14 +157,12 @@ module "hc9-container" {
 }
 
 resource "google_compute_disk" "hc9-pd" {
-  project = module.project-factory.project_id
   name    = "${local.hc9_instance_name}-data-disk"
   type    = "pd-ssd"
   size    = 10
 }
 
 resource "google_compute_instance" "hc9-vm" {
-  project      = module.project-factory.project_id
   name         = local.hc9_instance_name
 
   # 4 vCPUs, 16 GB memory - https://cloud.google.com/compute/all-pricing#n2d_machine_types
@@ -228,13 +211,11 @@ resource "google_compute_instance" "hc9-vm" {
 
 resource "google_compute_network" "hc9-network" {
   name                    = "hc9-network"
-  project                 = module.project-factory.project_id
   auto_create_subnetworks = false
 }
 
 resource "google_compute_firewall" "hc9-http-access" {
   name    = "${local.hc9_instance_name}-http"
-  project = module.project-factory.project_id
   network = google_compute_network.hc9-network.id
 
   allow {
