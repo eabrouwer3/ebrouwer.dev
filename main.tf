@@ -158,8 +158,8 @@ resource "google_compute_disk" "hc9-pd" {
 }
 
 resource "google_service_account" "default" {
-  account_id   = "vm-sa"
-  display_name = "Custom SA for VM Instance"
+  account_id   = "hc9-service-account"
+  display_name = "SA for HC9 VM Instance"
 }
 
 resource "google_compute_instance" "hc9-vm" {
