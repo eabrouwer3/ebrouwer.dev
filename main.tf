@@ -149,66 +149,66 @@ module "hc9-container" {
   ]
 }
 
-#resource "google_compute_disk" "hc9-pd" {
-#  name    = "${local.hc9_instance_name}-data-disk"
-#  type    = "pd-ssd"
-#  size    = 10
-#}
+resource "google_compute_disk" "hc9-pd" {
+  name    = "${local.hc9_instance_name}-data-disk"
+  type    = "pd-ssd"
+  size    = 10
+}
 
-#resource "google_compute_instance" "hc9-vm" {
-#  name         = local.hc9_instance_name
-#
-#  # 4 vCPUs, 16 GB memory - https://cloud.google.com/compute/all-pricing#n2d_machine_types
-#  machine_type = "n2d-standard-4"
-#
-#  scheduling {
-#    preemptible = true
-#    automatic_restart = false
-#    provisioning_model = "SPOT"
-#  }
-#
-#  boot_disk {
-#    initialize_params {
-#      image = module.hc9-container.source_image
-#    }
-#  }
-#
-#  attached_disk {
-#    source      = google_compute_disk.hc9-pd.self_link
-#    device_name = "data-disk-0"
-#    mode        = "READ_WRITE"
-#  }
-#
-#  network_interface {
-#    network = "default"
-#    access_config {
-#      network_tier = "STANDARD"
-#    }
-#  }
-#
-#  metadata = { "gce-container-declaration" = module.hc9-container.metadata_value }
-#
-#  labels = {
-#    container-vm = module.hc9-container.vm_container_label
-#  }
-#
-#  tags = ["hc9-instance"]
-#}
+resource "google_compute_instance" "hc9-vm" {
+  name         = local.hc9_instance_name
 
-#resource "google_compute_firewall" "hc9-http-access" {
-#  name    = "${local.hc9_instance_name}-http"
-#  network = "default"
-#
-#  allow {
-#    protocol = "tcp"
-#    ports    = [local.minecraft_port]
-#  }
-#
-#  allow {
-#    protocol = "udp"
-#    ports    = [local.simple_voice_chat_port]
-#  }
-#
-#  source_ranges = ["0.0.0.0/0"]
-#  target_tags   = ["hc9-instance"]
-#}
+  # 4 vCPUs, 16 GB memory - https://cloud.google.com/compute/all-pricing#n2d_machine_types
+  machine_type = "n2d-standard-4"
+
+  scheduling {
+    preemptible = true
+    automatic_restart = false
+    provisioning_model = "SPOT"
+  }
+
+  boot_disk {
+    initialize_params {
+      image = module.hc9-container.source_image
+    }
+  }
+
+  attached_disk {
+    source      = google_compute_disk.hc9-pd.self_link
+    device_name = "data-disk-0"
+    mode        = "READ_WRITE"
+  }
+
+  network_interface {
+    network = "default"
+    access_config {
+      network_tier = "STANDARD"
+    }
+  }
+
+  metadata = { "gce-container-declaration" = module.hc9-container.metadata_value }
+
+  labels = {
+    container-vm = module.hc9-container.vm_container_label
+  }
+
+  tags = ["hc9-instance"]
+}
+
+resource "google_compute_firewall" "hc9-http-access" {
+  name    = "${local.hc9_instance_name}-http"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = [local.minecraft_port]
+  }
+
+  allow {
+    protocol = "udp"
+    ports    = [local.simple_voice_chat_port]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["hc9-instance"]
+}
