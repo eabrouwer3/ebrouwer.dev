@@ -198,7 +198,8 @@ resource "google_compute_instance" "hc9-vm" {
 }
 
 resource "google_compute_network" "hc9-network" {
-  name = "hc9-network"
+  name                    = "hc9-network"
+  auto_create_subnetworks = false
 }
 
 resource "google_compute_firewall" "hc9-http-access" {
