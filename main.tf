@@ -183,7 +183,7 @@ resource "google_compute_instance" "hc9-vm" {
   name         = local.hc9_instance_name
 
   # 4 vCPUs, 16 GB memory - https://cloud.google.com/compute/all-pricing#n2d_machine_types
-  machine_type = 'n2d-standard-4'
+  machine_type = "n2d-standard-4"
 
   scheduling {
     preemptible = true
