@@ -157,11 +157,6 @@ resource "google_compute_disk" "hc9-pd" {
   size    = 10
 }
 
-resource "google_service_account" "default" {
-  account_id   = "hc9-service-account"
-  display_name = "SA for HC9 VM Instance"
-}
-
 resource "google_compute_instance" "hc9-vm" {
   name         = local.hc9_instance_name
 
@@ -200,11 +195,6 @@ resource "google_compute_instance" "hc9-vm" {
   }
 
   tags = ["hc9-instance"]
-
-  service_account {
-    email = google_service_account.default.email
-    scopes = ["cloud-platform"]
-  }
 }
 
 resource "google_compute_firewall" "hc9-http-access" {
