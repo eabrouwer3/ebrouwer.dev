@@ -1,10 +1,5 @@
 provider "google" {}
 
-variable "gcp_account_email" {
-  type = string
-  description = "The email address of the service account to use for the service"
-}
-
 locals {
   minecraft_image = "itzg/minecraft-server:latest"
   minecraft_port = 25565
@@ -162,6 +157,11 @@ resource "google_compute_disk" "hc9-pd" {
   size    = 10
 }
 
+resource "google_service_account" "default" {
+  account_id   = "vm-sa"
+  display_name = "Custom SA for VM Instance"
+}
+
 resource "google_compute_instance" "hc9-vm" {
   name         = local.hc9_instance_name
 
@@ -202,10 +202,8 @@ resource "google_compute_instance" "hc9-vm" {
   tags = ["hc9-instance"]
 
   service_account {
-    email = var.gcp_account_email
-    scopes = [
-      "https://www.googleapis.com/auth/cloud-platform",
-    ]
+    email = google_service_account.default.email
+    scopes = ["cloud-platform"]
   }
 }
 
