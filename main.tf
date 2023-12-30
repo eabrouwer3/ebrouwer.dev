@@ -197,25 +197,20 @@ resource "google_compute_instance" "hc9-vm" {
   tags = ["hc9-instance"]
 }
 
-resource "google_compute_network" "hc9-network" {
-  name                    = "hc9-network"
-  auto_create_subnetworks = false
-}
-
-resource "google_compute_firewall" "hc9-http-access" {
-  name    = "${local.hc9_instance_name}-http"
-  network = "default"
-
-  allow {
-    protocol = "tcp"
-    ports    = [local.minecraft_port]
-  }
-
-  allow {
-    protocol = "udp"
-    ports    = [local.simple_voice_chat_port]
-  }
-
-  source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["hc9-instance"]
-}
+#resource "google_compute_firewall" "hc9-http-access" {
+#  name    = "${local.hc9_instance_name}-http"
+#  network = "default"
+#
+#  allow {
+#    protocol = "tcp"
+#    ports    = [local.minecraft_port]
+#  }
+#
+#  allow {
+#    protocol = "udp"
+#    ports    = [local.simple_voice_chat_port]
+#  }
+#
+#  source_ranges = ["0.0.0.0/0"]
+#  target_tags   = ["hc9-instance"]
+#}
