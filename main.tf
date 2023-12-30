@@ -197,6 +197,10 @@ resource "google_compute_instance" "hc9-vm" {
   tags = ["hc9-instance"]
 }
 
+resource "google_compute_network" "hc9-network" {
+  name = "hc9-network"
+}
+
 resource "google_compute_firewall" "hc9-http-access" {
   name    = "${local.hc9_instance_name}-http"
   network = "default"
