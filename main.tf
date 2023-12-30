@@ -29,9 +29,7 @@ module "hc9-container" {
       },
       {
         name = "MODRINTH_PROJECTS",
-        # Gonna see if I can get away with just listing the slugs and see if it gets the right versions
-        # value = "lithium:ZSNsJrPI,simple-voice-chat:r5GmfR2B,sodium:4OZL6q9h,peek:nRdWc1r4,coord-finder:JMOufqew,carpet:K0Wj117C,audioplayer:AaHt4ziE,fabric-api:YblXfKtI"
-        value = "lithium,simple-voice-chat,sodium,peek,coord-finder,carpet,audioplayer,fabric-api"
+        value = "lithium:ZSNsJrPI,simple-voice-chat:r5GmfR2B,sodium:4OZL6q9h,peek:nRdWc1r4,coord-finder:JMOufqew,carpet:K0Wj117C,audioplayer:AaHt4ziE,fabric-api:YblXfKtI"
       },
       {
         name = "VERSION",
