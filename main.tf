@@ -187,7 +187,7 @@ resource "google_compute_instance" "hc9-vm" {
   }
 
   network_interface {
-    network = google_compute_network.hc9-network.id
+    network = "default"
     access_config {
       network_tier = "STANDARD"
     }
@@ -207,11 +207,6 @@ resource "google_compute_instance" "hc9-vm" {
       "https://www.googleapis.com/auth/cloud-platform",
     ]
   }
-}
-
-resource "google_compute_network" "hc9-network" {
-  name                    = "hc9-network"
-  auto_create_subnetworks = false
 }
 
 resource "google_compute_firewall" "hc9-http-access" {
