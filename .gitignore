@@ -4,5 +4,9 @@ node_modules
 /build
 /public/build
 .env
+.terraform/
+
+.DS_Store
+.idea/
 
 /app/styles/app.css
