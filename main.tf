@@ -165,6 +165,7 @@ resource "google_compute_instance" "hc9-vm" {
     preemptible = true
     automatic_restart = false
     provisioning_model = "SPOT"
+    instance_termination_action = "STOP"
   }
 
   boot_disk {
