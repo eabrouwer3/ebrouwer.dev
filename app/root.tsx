@@ -16,11 +16,13 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: 'https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,700;1,300&family=Source+Code+Pro:ital@0;1&display=swap'}
 ];
 
-export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  title: "Ethan Brouwer",
-  viewport: "width=device-width,initial-scale=1",
-});
+export const meta: MetaFunction = () => [
+  { charset: "utf-8" },
+  { name: "viewport", content: "width=device-width,initial-scale=1" },
+  { name: "theme-color", content: "#000000" },
+  { name: "description", content: "Ethan Brouwer's personal website" },
+  { name: "title", content: "Ethan Brouwer" },
+];
 
 export default function App() {
   return (
