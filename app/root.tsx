@@ -21,13 +21,13 @@ export const meta: MetaFunction = () => [
   { name: "viewport", content: "width=device-width,initial-scale=1" },
   { name: "theme-color", content: "#000000" },
   { name: "description", content: "Ethan Brouwer's personal website" },
-  { name: "title", content: "Ethan Brouwer" },
 ];
 
 export default function App() {
   return (
     <html lang="en">
       <head>
+        <title>Ethan Brouwer</title>
         <Meta />
         <Links />
       </head>
