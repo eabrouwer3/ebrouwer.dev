@@ -1,6 +1,8 @@
 import CenteredLogoLink from "~/components/CenteredLogoLink";
 import { ExternalLink } from "~/components/CustomLink";
-import { Briefcase, Circle, GraduationCap, Handshake, SVGFC } from "~/components/icons";
+import type { SVGFC } from "~/components/icons";
+import { Briefcase, Circle, GraduationCap, Handshake } from "~/components/icons";
+
 import taxbitLogo from "~/assets/images/taxbit_full_logo.png";
 import learningbridgeLogo from "~/assets/images/LearningBridge_logo_rgb.jpg";
 import perfectPitchLogo from "~/assets/images/perfectpitch-logo.png";

@@ -10,6 +10,7 @@ const SlideDeck: React.FC<Props> = ({title, url}) => {
       <>
         <a href={url} rel="noopener noreferrer" target={'_blank'}>Open on slides.com</a>
         <iframe src={`${url}/embed`} width="576" height="420" title={title} allowFullScreen
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 scrolling="no" frameBorder="0" webkitallowfullscreen mozallowfullscreen/>
       </>

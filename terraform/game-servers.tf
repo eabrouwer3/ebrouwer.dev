@@ -1,5 +1,3 @@
-provider "google" {}
-
 locals {
   minecraft_image = "itzg/minecraft-server:latest"
   minecraft_port = 25565

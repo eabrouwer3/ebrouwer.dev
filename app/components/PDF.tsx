@@ -1,6 +1,7 @@
 import {Document, Page} from 'react-pdf';
 import {pdfjs} from 'react-pdf';
 import {useState} from "react";
+
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface Props {

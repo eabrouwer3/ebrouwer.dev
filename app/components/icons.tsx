@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 export type SVGFC = React.FC<React.SVGProps<SVGSVGElement>>;
 
 export const ChevronDown: SVGFC = (props) => {
