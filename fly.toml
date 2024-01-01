@@ -6,13 +6,11 @@ kill_timeout = 5
 processes = []
 
 [env]
-PORT=8080
+  PORT=8080
+  NODE_ENV = "production"
 
 [experimental]
   auto_rollback = true
-
-[env]
-  NODE_ENV = "production"
 
 [[services]]
   http_checks = []
