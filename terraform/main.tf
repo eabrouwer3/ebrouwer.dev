@@ -1,12 +1,13 @@
 resource "google_firestore_database" "database" {
-  name                    = "(default)"
-  location_id             = "nam5"
-  type                    = "FIRESTORE_NATIVE"
+  name        = "(default)"
+  location_id = "nam5"
+  type        = "FIRESTORE_NATIVE"
 }
 
 resource "google_firestore_field" "timestamp" {
+  database   = google_firestore_database.database.id
   collection = "totp"
-  field = "expiresAt"
+  field      = "expiresAt"
 
   # enables a TTL policy for the document based on the value of entries with this field
   ttl_config {}
@@ -16,10 +17,11 @@ resource "google_firestore_field" "timestamp" {
 }
 
 resource "google_firestore_document" "main_admin" {
-    collection = "admin"
-    document_id = "me@ebrouwer.dev"
+  database    = google_firestore_database.database.id
+  collection  = "admin"
+  document_id = "me@ebrouwer.dev"
 
-    fields = jsonencode({
-      email = "me@ebrouwer.dev"
-    })
+  fields = jsonencode({
+    email = "me@ebrouwer.dev"
+  })
 }

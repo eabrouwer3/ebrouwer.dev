@@ -1,8 +1,8 @@
 locals {
-  minecraft_image = "itzg/minecraft-server:latest"
-  minecraft_port = 25565
+  minecraft_image        = "itzg/minecraft-server:latest"
+  minecraft_port         = 25565
   simple_voice_chat_port = 24454
-  hc9_instance_name   = "hc9-server"
+  hc9_instance_name      = "hc9-server"
 }
 
 module "hc9-container" {
@@ -18,107 +18,107 @@ module "hc9-container" {
         value = "TRUE"
       },
       {
-        name = "TYPE",
+        name  = "TYPE",
         value = "FABRIC"
       },
       {
-        name = "WORLD",
+        name  = "WORLD",
         value = "https://storage.googleapis.com/ebrouwer-dev-cdn/minecraft/hc9-world.zip"
       },
       {
-        name = "MODRINTH_PROJECTS",
+        name  = "MODRINTH_PROJECTS",
         value = "lithium:ZSNsJrPI,simple-voice-chat:r5GmfR2B,sodium:4OZL6q9h,peek:nRdWc1r4,coord-finder:JMOufqew,carpet:K0Wj117C,audioplayer:AaHt4ziE,fabric-api:YblXfKtI"
       },
       {
-        name = "VERSION",
+        name  = "VERSION",
         value = "1.20.1"
       },
       {
-        name = "MEMORY",
+        name  = "MEMORY",
         value = ""
       },
       {
-        name = "JVM_XX_OPTS",
+        name  = "JVM_XX_OPTS",
         value = "-XX:MaxRAMPercentage=75"
       },
       {
-        name = "ENABLE_ROLLING_LOGS",
+        name  = "ENABLE_ROLLING_LOGS",
         value = "true"
       },
       {
-        name = "TZ",
+        name  = "TZ",
         value = "America/Denver"
       },
       {
-        name = "RESOURCE_PACK",
+        name  = "RESOURCE_PACK",
         value = "https://storage.googleapis.com/ebrouwer-dev-cdn/minecraft/hc9-resources.zip"
       },
       {
-        name = "RESOURCE_PACK_SHA1",
+        name  = "RESOURCE_PACK_SHA1",
         value = "eb17202ea28f673fb590e0ee805ba9de7135ba87"
       },
       {
-        name = "MOTD",
+        name  = "MOTD",
         value = "A Block Paper Scissors Server"
       },
       {
-        name = "DIFFICULTY",
+        name  = "DIFFICULTY",
         value = "hard"
       },
       {
-        name = "WHITELIST",
+        name  = "WHITELIST",
         value = "IAmAlpaca,DeSpook"
       },
       {
-        name = "EXISTING_WHITELIST_FILE",
+        name  = "EXISTING_WHITELIST_FILE",
         value = "SYNCHRONIZE"
       },
       {
-        name = "ENFORCE_WHITELIST",
+        name  = "ENFORCE_WHITELIST",
         value = "true"
       },
       {
-        name = "OPS",
+        name  = "OPS",
         value = "IAmAlpaca"
       },
       {
-        name = "ALLOW_NETHER",
+        name  = "ALLOW_NETHER",
         value = "true"
       },
       {
-        name = "ANNOUNCE_PLAYER_ACHIEVEMENTS",
+        name  = "ANNOUNCE_PLAYER_ACHIEVEMENTS",
         value = "true"
       },
       {
-        name = "GENERATE_STRUCTURES",
+        name  = "GENERATE_STRUCTURES",
         value = "true"
       },
       {
-        name = "SPAWN_ANIMALS",
+        name  = "SPAWN_ANIMALS",
         value = "true"
       },
       {
-        name = "SPAWN_MONSTERS",
+        name  = "SPAWN_MONSTERS",
         value = "true"
       },
       {
-        name = "SPAWN_NPCS",
+        name  = "SPAWN_NPCS",
         value = "true"
       },
       {
-        name = "VIEW_DISTANCE",
+        name  = "VIEW_DISTANCE",
         value = "16"
       },
       {
-        name = "SEED",
+        name  = "SEED",
         value = "-3609821817241206192"
       },
       {
-        name = "SERVER_NAME",
+        name  = "SERVER_NAME",
         value = "HC9 Server"
       },
       {
-        name = "GENERIC_PACK",
+        name  = "GENERIC_PACK",
         value = "https://storage.googleapis.com/ebrouwer-dev-cdn/minecraft/hc9-config.zip"
       }
     ]
@@ -148,21 +148,21 @@ module "hc9-container" {
 }
 
 resource "google_compute_disk" "hc9-pd" {
-  name    = "${local.hc9_instance_name}-data-disk"
-  type    = "pd-ssd"
-  size    = 10
+  name = "${local.hc9_instance_name}-data-disk"
+  type = "pd-ssd"
+  size = 10
 }
 
 resource "google_compute_instance" "hc9-vm" {
-  name         = local.hc9_instance_name
+  name = local.hc9_instance_name
 
   # 4 vCPUs, 16 GB memory - https://cloud.google.com/compute/all-pricing#n2d_machine_types
   machine_type = "n2d-standard-4"
 
   scheduling {
-    preemptible = true
-    automatic_restart = false
-    provisioning_model = "SPOT"
+    preemptible                 = true
+    automatic_restart           = false
+    provisioning_model          = "SPOT"
     instance_termination_action = "STOP"
   }
 
