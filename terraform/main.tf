@@ -4,11 +4,6 @@ resource "google_firestore_database" "database" {
   type        = "FIRESTORE_NATIVE"
 }
 
-resource "google_firestore_collection" "totp" {
-  database   = google_firestore_database.database.name
-  collection = "totp"
-}
-
 resource "google_firestore_field" "timestamp" {
   database   = google_firestore_database.database.name
   collection = "totp"
