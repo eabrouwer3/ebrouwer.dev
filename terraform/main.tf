@@ -5,7 +5,7 @@ resource "google_firestore_database" "database" {
 }
 
 resource "google_firestore_field" "timestamp" {
-  database   = google_firestore_database.database.id
+  database   = google_firestore_database.database.name
   collection = "totp"
   field      = "expiresAt"
 
@@ -17,7 +17,7 @@ resource "google_firestore_field" "timestamp" {
 }
 
 resource "google_firestore_document" "main_admin" {
-  database    = google_firestore_database.database.id
+  database    = google_firestore_database.database.name
   collection  = "admin"
   document_id = "me@ebrouwer.dev"
 
