@@ -4,6 +4,11 @@ resource "google_firestore_database" "database" {
   type        = "FIRESTORE_NATIVE"
 }
 
+resource "google_firestore_collection" "totp" {
+  database   = google_firestore_database.database.name
+  collection = "totp"
+}
+
 resource "google_firestore_field" "timestamp" {
   database   = google_firestore_database.database.name
   collection = "totp"
@@ -22,6 +27,8 @@ resource "google_firestore_document" "main_admin" {
   document_id = "me@ebrouwer.dev"
 
   fields = jsonencode({
-    email = "me@ebrouwer.dev"
+    email = {
+      stringValue = "me@ebrouwer.dev"
+    }
   })
 }
