@@ -58,7 +58,7 @@ export default function Login() {
               </div>
             </Form>
 
-            <Form>
+            <Form method="POST">
               {/* Code Verification Form. */}
               <div>
                 <label className="text-sm" htmlFor="code">Code</label>
