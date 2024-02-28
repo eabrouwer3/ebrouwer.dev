@@ -38,4 +38,5 @@ authenticator.use(
       return admin;
     },
   ),
+  'TOTP',
 );
