@@ -29,6 +29,7 @@ authenticator.use(
       },
     },
     async ({ email }) => {
+      console.log('trying to auth...');
       const admin = await getAdmin(email);
       console.log(admin);
       if (!admin) {
