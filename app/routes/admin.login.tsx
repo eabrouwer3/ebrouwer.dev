@@ -27,16 +27,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export async function action({ request }: ActionFunctionArgs) {
   await authenticator.authenticate('TOTP', request, {
-    // The `successRedirect` route it's required.
-    // ...
-    // User is not authenticated yet.
-    // We want to redirect to our verify code form. (/verify-code or any other route).
-    successRedirect: '/admin/verify',
-
-    // The `failureRedirect` route it's required.
-    // ...
-    // We want to display any possible error message.
-    // If not provided, ErrorBoundary will be rendered instead.
+    successRedirect: '/admin/login',
     failureRedirect: '/admin/login',
   })
 }
@@ -56,35 +47,31 @@ export default function Login() {
           <Form method="POST">
             <div className="flex flex-col gap-3">
               {/* Email Form. */}
-              {!authEmail && (
-                <>
-                  <div>
-                    <label className="text-sm" htmlFor="email">Email</label>
-                  </div>
-                  <div>
-                    <input type="email" name="email" placeholder="Insert email..." required className="form-input rounded w-full lg:w-1/2" />
-                  </div>
-                  <div>
-                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Send Code</button>
-                  </div>
-                </>
-              )}
+              <>
+                <div>
+                  <label className="text-sm" htmlFor="email">Email</label>
+                </div>
+                <div>
+                  <input type="email" name="email" placeholder="Insert email..." required className="form-input rounded w-full lg:w-1/2" />
+                </div>
+                <div>
+                  <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Send Code</button>
+                </div>
+              </>
 
               {/* Code Verification Form. */}
-              {authEmail && (
-                <>
-                  {/* Renders the form that verifies the code. */}
-                  <div>
-                    <label className="text-sm" htmlFor="code">Code</label>
-                  </div>
-                  <div>
-                    <input type="text" name="code" placeholder="Insert code..." required className="form-input rounded w-full lg:w-1/2" />
-                  </div>
-                  <div>
-                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Continue</button>
-                  </div>
-                </>
-              )}
+              <>
+                {/* Renders the form that verifies the code. */}
+                <div>
+                  <label className="text-sm" htmlFor="code">Code</label>
+                </div>
+                <div>
+                  <input type="text" name="code" placeholder="Insert code..." required className="form-input rounded w-full lg:w-1/2" />
+                </div>
+                <div>
+                  <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Continue</button>
+                </div>
+              </>
 
               {/* Renders the error message. */}
               {authError && <div>{authError.message}</div>}

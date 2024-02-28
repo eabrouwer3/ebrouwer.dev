@@ -7,7 +7,7 @@ import type {Admin} from '~/modules/db.server';
 import { createTotp, getAdmin, getTotp, updateTotp} from '~/modules/db.server'
 import {ENCRYPTION_SECRET} from "~/modules/constants.server";
 
-export const authenticator = new Authenticator<Admin>(sessionStorage, {
+const authenticator = new Authenticator<Admin>(sessionStorage, {
   throwOnError: true,
 });
 
@@ -29,14 +29,13 @@ authenticator.use(
       },
     },
     async ({ email }) => {
-      console.log('trying to auth...');
       const admin = await getAdmin(email);
-      console.log(admin);
       if (!admin) {
         throw new AuthorizationError('Invalid email address');
       }
       return admin;
     },
   ),
-  'TOTP',
 );
+
+export { authenticator };

@@ -20,15 +20,8 @@ export interface Admin {
 export const adminCollection = db.collection('admin').withConverter(converter<Admin>());
 
 export async function getAdmin(email: string) {
-  console.log(GCP_PROJECT_ID);
-  try {
-    const record = await adminCollection.doc(email).get();
-    console.log(record);
-    return record.data() ?? null;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
+  const record = await adminCollection.doc(email).get();
+  return record.data() ?? null;
 }
 
 export async function createAdmin(email: string) {
