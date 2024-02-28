@@ -30,7 +30,7 @@ authenticator.use(
     },
     async ({ email }) => {
       const admin = await getAdmin(email);
-      console.error(admin);
+      console.log(admin);
       if (!admin) {
         throw new AuthorizationError('Invalid email address');
       }
