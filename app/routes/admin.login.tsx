@@ -44,9 +44,9 @@ export default function Login() {
       </div>
       <div className="flex">
         <div className="grow">
-          <Form method="POST">
-            <div className="flex flex-col gap-3">
-              {/* Email Form. */}
+          <div className="flex flex-col gap-3">
+            {/* Email Form. */}
+            <Form method="POST">
               <div>
                 <label className="text-sm" htmlFor="email">Email</label>
               </div>
@@ -56,7 +56,9 @@ export default function Login() {
               <div>
                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Send Code</button>
               </div>
+            </Form>
 
+            <Form>
               {/* Code Verification Form. */}
               <div>
                 <label className="text-sm" htmlFor="code">Code</label>
@@ -67,11 +69,11 @@ export default function Login() {
               <div>
                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Continue</button>
               </div>
+            </Form>
 
-              {/* Renders the error message. */}
-              {authError && <div>{authError.message}</div>}
-            </div>
-          </Form>
+            {/* Renders the error message. */}
+            {authError && <div>{authError.message}</div>}
+          </div>
         </div>
       </div>
     </>
