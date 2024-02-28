@@ -26,6 +26,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export async function action({ request }: ActionFunctionArgs) {
+  console.error('login action', request);
   await authenticator.authenticate('TOTP', request, {
     // The `successRedirect` route it's required.
     // ...
