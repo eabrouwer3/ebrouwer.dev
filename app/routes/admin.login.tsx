@@ -53,11 +53,11 @@ export default function Login() {
       </div>
       <div className="flex">
         <div className="grow">
-          <div>
-            {/* Email Form. */}
-            {!authEmail && (
-              <Form method="POST">
-                <div className="flex flex-col gap-3">
+          <Form method="POST">
+            <div className="flex flex-col gap-3">
+              {/* Email Form. */}
+              {!authEmail && (
+                <>
                   <div>
                     <label className="text-sm" htmlFor="email">Email</label>
                   </div>
@@ -67,32 +67,29 @@ export default function Login() {
                   <div>
                     <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Send Code</button>
                   </div>
-                </div>
-              </Form>
-            )}
+                </>
+              )}
 
-            {/* Code Verification Form. */}
-            {authEmail && (
-              <>
-                {/* Renders the form that verifies the code. */}
-                <Form method="POST">
-                  <label htmlFor="code">Code</label>
-                  <input type="text" name="code" placeholder="Insert code .." required />
+              {/* Code Verification Form. */}
+              {authEmail && (
+                <>
+                  {/* Renders the form that verifies the code. */}
+                  <div>
+                    <label className="text-sm" htmlFor="code">Code</label>
+                  </div>
+                  <div>
+                    <input type="text" name="code" placeholder="Insert code..." required className="form-input rounded w-full lg:w-1/2" />
+                  </div>
+                  <div>
+                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Continue</button>
+                  </div>
+                </>
+              )}
 
-                  <button type="submit">Continue</button>
-                </Form>
-
-                {/* Renders the form that requests a new code. */}
-                {/* Email input is not required, it's already stored in Session. */}
-                <Form method="POST">
-                  <button type="submit">Request new Code</button>
-                </Form>
-              </>
-            )}
-
-            {/* Renders the error message. */}
-            {authError && <div>{authError.message}</div>}
-          </div>
+              {/* Renders the error message. */}
+              {authError && <div>{authError.message}</div>}
+            </div>
+          </Form>
         </div>
       </div>
     </>
