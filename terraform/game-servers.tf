@@ -149,7 +149,7 @@ module "hc9-container" {
 
 resource "google_firestore_document" "hc9-server" {
   database    = google_firestore_database.database.name
-  collection  = "game-servers"
+  collection  = "game-server"
   document_id = "hc9"
 
   fields = jsonencode({
@@ -161,6 +161,9 @@ resource "google_firestore_document" "hc9-server" {
     }
     subdomain = {
       stringValue = "hc9"
+    }
+    instanceId = {
+      stringValue = google_compute_instance.hc9-vm.id
     }
   })
 }
