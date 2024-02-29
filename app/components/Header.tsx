@@ -14,7 +14,7 @@ const HeaderLink: React.FC<{to: string, name: string, block?: boolean}> = ({to, 
   return <Link preventScrollReset className={`text-white py-4 px-6 uppercase font-bold border border-transparent border-solid no-underline ${block ? 'block' : 'inline'} visited:text-white focus:text-white hover:text-white hover:border-white`} to={to}>{name}</Link>;
 };
 
-export const Header: React.FC = () => {
+export const  Header: React.FC = () => {
   const headerRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
 

@@ -147,6 +147,24 @@ module "hc9-container" {
   ]
 }
 
+resource "google_firestore_document" "main_admin" {
+  database    = google_firestore_database.database.name
+  collection  = "game-servers"
+  document_id = "hc9"
+
+  fields = jsonencode({
+    name = {
+      stringValue = "Hermitcraft Season 9"
+    }
+    game = {
+      stringValue = "Minecraft"
+    }
+    subdomain = {
+      stringValue = "hc9"
+    }
+  })
+}
+
 resource "google_compute_disk" "hc9-pd" {
   name = "${local.hc9_instance_name}-data-disk"
   type = "pd-ssd"

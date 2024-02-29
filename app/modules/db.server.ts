@@ -13,6 +13,7 @@ const converter = <T>() => ({
     snap.data() as T
 })
 
+// Admins
 export interface Admin {
   email: string;
 }
@@ -28,6 +29,7 @@ export async function createAdmin(email: string) {
   await adminCollection.doc(email).set({ email });
 }
 
+// TOTPs
 export interface Totp extends TOTPData {
   expiresAt: Date;
 }
@@ -45,4 +47,30 @@ export async function createTotp(hash: string, data: Totp) {
 
 export async function updateTotp(hash: string, data: Partial<Omit<Totp, 'hash'>>) {
   await totpCollection.doc(hash).update(data);
+}
+
+// Game Servers
+export interface GameServer {
+  name: string;
+  game: string;
+  subdomain: string;
+}
+
+export const gameServerCollection = db.collection('game-server').withConverter(converter<GameServer>());
+
+export async function getGameServer(id: string) {
+  const result = await gameServerCollection.doc(id).get();
+  return result.data() ?? null;
+}
+
+export async function createGameServer(id: string, data: GameServer) {
+  await gameServerCollection.doc(id).set(data);
+}
+
+export async function listGameServers() {
+  const result = await gameServerCollection.get();
+  return result.docs.map(doc => ({
+    ...doc.data(),
+    id: doc.id,
+  }));
 }
