@@ -54,6 +54,7 @@ export interface GameServer {
   name: string;
   game: string;
   subdomain: string;
+  instanceId: string;
 }
 
 export const gameServerCollection = db.collection('game-server').withConverter(converter<GameServer>());

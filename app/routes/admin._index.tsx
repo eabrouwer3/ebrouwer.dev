@@ -4,15 +4,9 @@ import { json } from '@remix-run/node'
 import { Form, useLoaderData } from '@remix-run/react'
 import { authenticator } from '~/modules/auth.server'
 import {Card} from "~/components/Card";
-import {listGameServers} from "~/modules/db.server";
+import {GameServer, listGameServers} from "~/modules/db.server";
 
-interface GameServerProps {
-  name: string,
-  game: string,
-  subdomain: string,
-}
-
-const GameServerCard: React.FC<React.HTMLProps<HTMLDivElement> & GameServerProps> = ({name, game, subdomain, children}) => {
+const GameServerCard: React.FC<GameServer> = ({name, game, subdomain, instanceId}) => {
   const linkInfo = {
     type: 'external' as const,
     href: `${subdomain}.ebrouwer.dev`,
@@ -20,14 +14,16 @@ const GameServerCard: React.FC<React.HTMLProps<HTMLDivElement> & GameServerProps
   };
   return (
       <Card title={`${name} (${game})`} link={linkInfo}>
-        {children}
+        <p>
+          This is a game server for {game} that is hosted at {subdomain}.ebrouwer.dev. It has instance ID {instanceId}.
+        </p>
       </Card>
   );
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const user = await authenticator.isAuthenticated(request, {
-    // failureRedirect: '/admin/login',
+    failureRedirect: '/admin/login',
   })
   const gameServers = await listGameServers();
   return json({ user, gameServers });
@@ -40,7 +36,7 @@ export default function Account() {
     <>
       <div className="flex pb-6 pt-12">
         <div className="flex flex-col justify-center grow">
-          <h1 className="font-header text-4xl tracking-widest block">Admin ({user && user.email})</h1>
+          <h1 className="font-header text-4xl tracking-widest block">Admin ({user.email})</h1>
         </div>
         <div className="flex flex-col shrink">
           {/* Logout Form. */}
@@ -51,8 +47,8 @@ export default function Account() {
       </div>
       <div className="flex justify-center">
         <div className="grow">
-          {gameServers.map(({id, name, game, subdomain}) => (
-            <GameServerCard key={id} name={name} game={game} subdomain={subdomain} />
+          {gameServers.map(({id, name, game, subdomain, instanceId}) => (
+            <GameServerCard key={id} name={name} game={game} subdomain={subdomain} instanceId={instanceId} />
           ))}
         </div>
       </div>

@@ -4,7 +4,7 @@ import { Share } from "./icons";
 interface CardProps {
   title: string,
   img?: string,
-  link: {
+  link?: {
     type: 'internal',
     to: string,
   } | {
@@ -20,14 +20,14 @@ export const Card: React.FC<React.HTMLProps<HTMLDivElement> & CardProps> = ({chi
       <div className="grow pl-1.5">
         <h2 className="font-header text-2xl inline-block m-0">{title}</h2>
         <br/>
-        {
-          link.type === 'internal'
+        { link &&
+          (link.type === 'internal'
             ? <Link preventScrollReset className="inline-block text-sm no-underline font-header text-gray-400 focus:text-gray-400 visited:text-gray-400	hover:text-gray-600" to={link.to}>
               {link.to}
             </Link>
             : <a className="inline-block text-sm no-underline font-header text-gray-400 focus:text-gray-400 visited:text-gray-400	hover:text-gray-600" href={link.href}  rel="noopener noreferrer" target={'_blank'}>
               {link.text} <sup><Share className="text-xs inline w-3"/></sup>
-            </a>
+            </a>)
         }
         <p className="mt-2.5 mb-0">
           {img && <img className="w-1/4 float-left hidden lg:block mr-4 ml-2 my-2" src={img} alt={title} />}
