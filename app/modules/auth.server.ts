@@ -16,6 +16,9 @@ authenticator.use(
     {
       secret: ENCRYPTION_SECRET,
       magicLinkGeneration: { callbackPath: '/admin/magic-link' },
+      totpGeneration: {
+        period: 600,
+      },
 
       createTOTP: async (data, expiresAt) => {
         await createTotp(data.hash, { ...data, expiresAt });

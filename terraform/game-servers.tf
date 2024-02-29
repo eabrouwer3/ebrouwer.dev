@@ -147,7 +147,7 @@ module "hc9-container" {
   ]
 }
 
-resource "google_firestore_document" "main_admin" {
+resource "google_firestore_document" "hc9-server" {
   database    = google_firestore_database.database.name
   collection  = "game-servers"
   document_id = "hc9"
