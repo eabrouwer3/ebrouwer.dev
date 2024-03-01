@@ -10,6 +10,8 @@ env:
   SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
   ENCRYPTION_SECRET: ${{ secrets.ENCRYPTION_SECRET }}
   RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+  PORKBUN_API_KEY: ${{ secrets.PORKBUN_API_KEY }}
+  PORKBUN_SECRET_API_KEY: ${{ secrets.PORKBUN_SECRET_API_KEY }}
 jobs:
   deploy:
     name: Deploy app
@@ -22,5 +24,7 @@ jobs:
                              GCP_PROJECT_ID="${GCP_PROJECT_ID}" \
                              SESSION_SECRET="${SESSION_SECRET}" \
                              ENCRYPTION_SECRET="${ENCRYPTION_SECRET}" \
-                             RESEND_API_KEY="${RESEND_API_KEY}"
+                             RESEND_API_KEY="${RESEND_API_KEY}" \
+                             PORKBUN_API_KEY="${PORKBUN_API_KEY}" \
+                             PORKBUN_SECRET_API_KEY="${PORKBUN_SECRET_API_KEY}"
       - run: flyctl deploy --remote-only

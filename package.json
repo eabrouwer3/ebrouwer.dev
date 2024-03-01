@@ -9,10 +9,12 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@google-cloud/compute": "^4.2.0",
     "@google-cloud/firestore": "^7.1.0",
     "@remix-run/node": "^2.4.1",
     "@remix-run/react": "^2.4.1",
     "@remix-run/serve": "^2.4.1",
+    "axios": "^1.6.7",
     "isbot": "^3.6.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

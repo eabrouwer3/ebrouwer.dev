@@ -50,21 +50,22 @@ export async function updateTotp(hash: string, data: Partial<Omit<Totp, 'hash'>>
 }
 
 // Game Servers
-export interface GameServer {
+export interface DbGameServer {
+  id: string;
   name: string;
   game: string;
   subdomain: string;
-  instanceId: string;
+  instanceName: string;
 }
 
-export const gameServerCollection = db.collection('game-server').withConverter(converter<GameServer>());
+export const gameServerCollection = db.collection('game-server').withConverter(converter<Omit<DbGameServer, 'id'>>());
 
 export async function getGameServer(id: string) {
   const result = await gameServerCollection.doc(id).get();
   return result.data() ?? null;
 }
 
-export async function createGameServer(id: string, data: GameServer) {
+export async function createGameServer(id: string, data: DbGameServer) {
   await gameServerCollection.doc(id).set(data);
 }
 
