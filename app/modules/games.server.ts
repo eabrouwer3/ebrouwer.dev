@@ -13,6 +13,7 @@ const operationsClient = new compute.ZoneOperationsClient({
 
 export async function getInstance(instanceName: string) {
   const [response] = await instancesClient.get({
+    project: GCP_PROJECT_ID,
     instance: instanceName,
     zone: GCP_ZONE,
   });
@@ -21,6 +22,7 @@ export async function getInstance(instanceName: string) {
 
 export async function stopInstance(instanceName: string) {
   const [response] = await instancesClient.suspend({
+    project: GCP_PROJECT_ID,
     instance: instanceName,
     zone: GCP_ZONE,
   });
@@ -28,6 +30,7 @@ export async function stopInstance(instanceName: string) {
 
   while (operation.status !== 'DONE') {
     [operation] = await operationsClient.wait({
+      project: GCP_PROJECT_ID,
       operation: operation.name,
       zone: GCP_ZONE,
     });
@@ -36,6 +39,7 @@ export async function stopInstance(instanceName: string) {
 
 export async function startInstance(instanceName: string) {
   const [response] = await instancesClient.resume({
+    project: GCP_PROJECT_ID,
     instance: instanceName,
     zone: GCP_ZONE,
   });
@@ -44,6 +48,7 @@ export async function startInstance(instanceName: string) {
   while (operation.status !== 'DONE') {
     [operation] = await operationsClient.wait({
       operation: operation.name,
+      project: GCP_PROJECT_ID,
       zone: GCP_ZONE,
     });
   }
