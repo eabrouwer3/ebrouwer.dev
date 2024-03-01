@@ -162,8 +162,8 @@ resource "google_firestore_document" "hc9-server" {
     subdomain = {
       stringValue = "hc9"
     }
-    instanceId = {
-      stringValue = google_compute_instance.hc9-vm.id
+    instanceName = {
+      stringValue = google_compute_instance.hc9-vm.name
     }
   })
 }
