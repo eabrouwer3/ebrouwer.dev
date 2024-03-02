@@ -5,36 +5,43 @@ import { Form, useLoaderData } from '@remix-run/react'
 import { authenticator } from '~/modules/auth.server'
 import {Card} from "~/components/Card";
 import {DbGameServer, listGameServers} from "~/modules/db.server";
-import {getInstance, startInstance, stopInstance} from "~/modules/games.server";
+import {getInstance, resumeInstance, startInstance, stopInstance} from "~/modules/games.server";
 import {addSubdomain, deleteSubdomain} from "~/modules/porkbun.server";
 
+enum GameServerStatus {
+  Deprovisioning = 'DEPROVISIONING',
+  Provisioning = 'PROVISIONING',
+  Repairing = 'REPAIRING',
+  Running = 'RUNNING',
+  Staging = 'STAGING',
+  Stopped = 'STOPPED',
+  Stopping = 'STOPPING',
+  Suspended = 'SUSPENDED',
+  Suspending = 'SUSPENDING',
+  Terminated = 'TERMINATED',
+  Undefined = 'UNDEFINED',
+}
+
 interface GameServer extends DbGameServer {
-  status: 'running' | 'stopped' | 'unknown';
+  status: GameServerStatus,
 }
 
 const GameServerCard: React.FC<GameServer> = ({name, game, subdomain, instanceName, status}) => {
+  const buttonColor = status === GameServerStatus.Running ? 'red' : status === GameServerStatus.Suspended || status === GameServerStatus.Stopped ? 'green' : 'gray';
+  const buttonDisabled = buttonColor === 'gray';
+  const textColor = buttonDisabled ? 'black' : 'white';
+  const action = status === GameServerStatus.Running ? 'stop' : status === GameServerStatus.Stopped ? 'start' : status === GameServerStatus.Suspended ? 'resume' : 'unknown';
   return (
     <Card title={`${name} (${game})`}>
       <p>
         This is a game server for "{game}" that is hosted at "{subdomain}.ebrouwer.dev". It has the instance name "{instanceName}".
       </p>
-      {status === 'running' ? (
-        <Form method='POST'>
-          <input type="hidden" name="instanceName" value={instanceName} />
-          <input type="hidden" name="subdomain" value={subdomain} />
-          <input type="hidden" name="action" value="stop" />
-          <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Stop Server</button>
-        </Form>
-      ) : null}
-      {status === 'stopped' ? (
-        <Form method='POST'>
-          <input type="hidden" name="instanceName" value={instanceName} />
-          <input type="hidden" name="subdomain" value={subdomain} />
-          <input type="hidden" name="action" value="start" />
-          <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Start Server</button>
-        </Form>
-      ) : null}
-      {status === 'unknown' ? (<p>Server status unknown...</p>) : null}
+      <Form method='POST'>
+        <input type="hidden" name="instanceName" value={instanceName} />
+        <input type="hidden" name="subdomain" value={subdomain} />
+        <input type="hidden" name="action" value={action} />
+        <button className={`bg-${buttonColor}-500 hover:bg-${buttonColor}-700 text-${textColor} font-bold py-2 px-4 rounded`} disabled={buttonDisabled}>Stop Server</button>
+      </Form>
     </Card>
   );
 }
@@ -47,11 +54,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return json({ user, gameServers: await Promise.all(
     gameServers.map(async (server) => {
       const { status } = await getInstance(server.instanceName);
-      const simpleStatus =
-        status === 'RUNNING' ? 'running' :
-          status === 'SUSPENDED' ? 'stopped' :
-            'unknown';
-      return { ...server, status: simpleStatus } as GameServer;
+      return { ...server, status: status as GameServerStatus } as GameServer;
     }),
   ) });
 }
@@ -64,9 +67,13 @@ export async function action({ request }: ActionFunctionArgs) {
   if (!action || !instanceName || !subdomain) {
     throw new Error('Invalid form data.');
   }
-  if (action === 'start') {
+  if (action === 'resume' || action === 'start') {
     // Start the game server
-    await startInstance(instanceName.toString());
+    if (action === 'resume') {
+      await resumeInstance(instanceName.toString());
+    } else {
+      await startInstance(instanceName.toString());
+    }
     const instance = await getInstance(instanceName.toString());
     const externalIp = instance.networkInterfaces?.flatMap(({accessConfigs}) => accessConfigs?.map(({natIP}) => natIP)).find(Boolean);
     if (!externalIp) {
@@ -80,7 +87,7 @@ export async function action({ request }: ActionFunctionArgs) {
     // Delete the DNS record
     await deleteSubdomain(subdomain.toString());
   } else {
-    throw new Error('Invalid action.')
+    throw new Error(`Invalid action: ${action}.`);
   }
 
   return json({ status: 'success' }, { status: 200 });

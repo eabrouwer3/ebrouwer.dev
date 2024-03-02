@@ -37,8 +37,25 @@ export async function stopInstance(instanceName: string) {
   }
 }
 
-export async function startInstance(instanceName: string) {
+export async function resumeInstance(instanceName: string) {
   const [response] = await instancesClient.resume({
+    project: GCP_PROJECT_ID,
+    instance: instanceName,
+    zone: GCP_ZONE,
+  });
+  let [operation] = await response.promise();
+
+  while (operation.status !== 'DONE') {
+    [operation] = await operationsClient.wait({
+      operation: operation.name,
+      project: GCP_PROJECT_ID,
+      zone: GCP_ZONE,
+    });
+  }
+}
+
+export async function startInstance(instanceName: string) {
+  const [response] = await instancesClient.start({
     project: GCP_PROJECT_ID,
     instance: instanceName,
     zone: GCP_ZONE,
