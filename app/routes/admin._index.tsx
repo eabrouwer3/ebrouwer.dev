@@ -30,10 +30,10 @@ const GameServerCard: React.FC<GameServer> = ({name, game, subdomain, instanceNa
   const redButton = <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Stop Server</button>
   const greenButton = <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Start Server</button>
   const grayButton = <button className="bg-gray-400 hover:bg-gray500 text-white font-bold py-2 px-4 rounded" disabled>Bad State</button>
-  console.log(status);
 
-  const button = status === GameServerStatus.Running ? redButton : status === GameServerStatus.Stopped || status === GameServerStatus.Suspended ? greenButton : grayButton;
-  const action = status === GameServerStatus.Running ? 'stop' : status === GameServerStatus.Stopped ? 'start' : status === GameServerStatus.Suspended ? 'resume' : 'unknown';
+  const action = status === GameServerStatus.Running ? 'stop' : status === GameServerStatus.Stopped || status === GameServerStatus.Terminated ? 'start' : status === GameServerStatus.Suspended ? 'resume' : 'unknown';
+  const button = action === 'stop' ? redButton : action === 'start' || action === 'resume' ? greenButton : grayButton;
+
   return (
     <Card title={`${name} (${game})`}>
       <p>
