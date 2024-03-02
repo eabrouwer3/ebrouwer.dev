@@ -26,9 +26,11 @@ export async function stopInstance(instanceName: string) {
     instance: instanceName,
     zone: GCP_ZONE,
   });
-  let [operation] = await response.promise();
+  let operation = response.latestResponse;
 
+  // @ts-ignore
   while (operation.status !== 'DONE') {
+    // @ts-ignore
     [operation] = await operationsClient.wait({
       project: GCP_PROJECT_ID,
       operation: operation.name,
@@ -43,9 +45,11 @@ export async function resumeInstance(instanceName: string) {
     instance: instanceName,
     zone: GCP_ZONE,
   });
-  let [operation] = await response.promise();
+  let operation = response.latestResponse;
 
+  // @ts-ignore
   while (operation.status !== 'DONE') {
+    // @ts-ignore
     [operation] = await operationsClient.wait({
       operation: operation.name,
       project: GCP_PROJECT_ID,
@@ -60,9 +64,11 @@ export async function startInstance(instanceName: string) {
     instance: instanceName,
     zone: GCP_ZONE,
   });
-  let [operation] = await response.promise();
+  let operation = response.latestResponse;
 
+  // @ts-ignore
   while (operation.status !== 'DONE') {
+    // @ts-ignore
     [operation] = await operationsClient.wait({
       operation: operation.name,
       project: GCP_PROJECT_ID,
