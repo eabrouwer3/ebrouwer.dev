@@ -27,9 +27,11 @@ interface GameServer extends DbGameServer {
 }
 
 const GameServerCard: React.FC<GameServer> = ({name, game, subdomain, instanceName, status}) => {
-  const buttonColor = status === GameServerStatus.Running ? 'red' : status === GameServerStatus.Suspended || status === GameServerStatus.Stopped ? 'green' : 'gray';
-  const buttonDisabled = buttonColor === 'gray';
-  const textColor = buttonDisabled ? 'black' : 'white';
+  const redButton = <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Stop Server</button>
+  const greenButton = <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Start Server</button>
+  const grayButton = <button className="bg-gray-500 text-white font-bold py-2 px-4 rounded" disabled>Unknown</button>
+
+  const button = status === GameServerStatus.Running ? redButton : status === GameServerStatus.Stopped || status === GameServerStatus.Suspended ? greenButton : grayButton;
   const action = status === GameServerStatus.Running ? 'stop' : status === GameServerStatus.Stopped ? 'start' : status === GameServerStatus.Suspended ? 'resume' : 'unknown';
   return (
     <Card title={`${name} (${game})`}>
@@ -40,7 +42,7 @@ const GameServerCard: React.FC<GameServer> = ({name, game, subdomain, instanceNa
         <input type="hidden" name="instanceName" value={instanceName} />
         <input type="hidden" name="subdomain" value={subdomain} />
         <input type="hidden" name="action" value={action} />
-        <button className={`bg-${buttonColor}-500 hover:bg-${buttonColor}-700 text-${textColor} font-bold py-2 px-4 rounded`} disabled={buttonDisabled}>Stop Server</button>
+        {button}
       </Form>
     </Card>
   );
