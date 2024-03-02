@@ -1,7 +1,7 @@
 import type {ActionFunctionArgs, LoaderFunctionArgs} from '@remix-run/node'
 
 import { json } from '@remix-run/node'
-import { Form, useLoaderData } from '@remix-run/react'
+import {Form, useActionData, useLoaderData, useNavigation} from '@remix-run/react'
 import { authenticator } from '~/modules/auth.server'
 import {Card} from "~/components/Card";
 import {DbGameServer, listGameServers} from "~/modules/db.server";
@@ -24,29 +24,6 @@ enum GameServerStatus {
 
 interface GameServer extends DbGameServer {
   status: GameServerStatus,
-}
-
-const GameServerCard: React.FC<GameServer> = ({name, game, subdomain, instanceName, status}) => {
-  const redButton = <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Stop Server</button>
-  const greenButton = <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Start Server</button>
-  const grayButton = <button className="bg-gray-400 hover:bg-gray500 text-white font-bold py-2 px-4 rounded" disabled>Bad State</button>
-
-  const action = status === GameServerStatus.Running ? 'stop' : status === GameServerStatus.Stopped || status === GameServerStatus.Terminated ? 'start' : status === GameServerStatus.Suspended ? 'resume' : 'unknown';
-  const button = action === 'stop' ? redButton : action === 'start' || action === 'resume' ? greenButton : grayButton;
-
-  return (
-    <Card title={`${name} (${game})`}>
-      <p>
-        This is a game server for "{game}" that is hosted at "{subdomain}.ebrouwer.dev". It has the instance name "{instanceName}".
-      </p>
-      <Form method='POST'>
-        <input type="hidden" name="instanceName" value={instanceName} />
-        <input type="hidden" name="subdomain" value={subdomain} />
-        <input type="hidden" name="action" value={action} />
-        {button}
-      </Form>
-    </Card>
-  );
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -84,16 +61,43 @@ export async function action({ request }: ActionFunctionArgs) {
     }
     // Add the DNS record
     await addSubdomain(subdomain.toString(), externalIp);
+    return json({ status: GameServerStatus.Running });
   } else if (action === 'stop') {
     // Stop the game server
     await stopInstance(instanceName.toString());
     // Delete the DNS record
     await deleteSubdomain(subdomain.toString());
+    return json({ status: GameServerStatus.Suspended });
   } else {
     throw new Error(`Invalid action: ${action}.`);
   }
+}
 
-  return json({ status: 'success' }, { status: 200 });
+const GameServerCard: React.FC<GameServer> = ({name, game, subdomain, instanceName, status}) => {
+  const navigation = useNavigation();
+  const data = useActionData<typeof action>();
+  status = data?.status ?? status;
+
+  const redButton = <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" disabled={navigation.state !== 'idle'}>Stop Server</button>
+  const greenButton = <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" disabled={navigation.state !== 'idle'}>Start Server</button>
+  const grayButton = <button className="bg-gray-400 hover:bg-gray500 text-white font-bold py-2 px-4 rounded" disabled>Bad State</button>
+
+  const formAction = status === GameServerStatus.Running ? 'stop' : status === GameServerStatus.Stopped || status === GameServerStatus.Terminated ? 'start' : status === GameServerStatus.Suspended ? 'resume' : 'unknown';
+  const button = formAction === 'stop' ? redButton : formAction === 'start' || formAction === 'resume' ? greenButton : grayButton;
+
+  return (
+    <Card title={`${name} (${game})`}>
+      <p>
+        This is a game server for "{game}" that is hosted at "{subdomain}.ebrouwer.dev". It has the instance name "{instanceName}".
+      </p>
+      <Form method='POST'>
+        <input type="hidden" name="instanceName" value={instanceName} />
+        <input type="hidden" name="subdomain" value={subdomain} />
+        <input type="hidden" name="action" value={formAction} />
+        {button}
+      </Form>
+    </Card>
+  );
 }
 
 export default function Account() {
