@@ -14,7 +14,7 @@ module "hc9-server" {
   resourcePackZip = "https://storage.googleapis.com/ebrouwer-dev-cdn/minecraft/hc9-resources.zip"
   resourcePackSha = "eb17202ea28f673fb590e0ee805ba9de7135ba87"
   seed = "-3609821817241206192"
-  genericPack = "https://storage.googleapis.com/ebrouwer-dev-cdn/minecraft/hc9-config.zip"
+  genericPackZip = "https://storage.googleapis.com/ebrouwer-dev-cdn/minecraft/hc9-config.zip"
 }
 
 module "kaitlyn-solo-server" {
