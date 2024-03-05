@@ -8,6 +8,7 @@ export async function addSubdomain(subdomain: string,ip: string): Promise<any> {
     name: subdomain,
     type: 'A',
     content: ip,
+    ttl: 60,
   });
 
   return response.data;

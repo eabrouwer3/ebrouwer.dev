@@ -27,3 +27,15 @@ resource "google_firestore_document" "main_admin" {
     }
   })
 }
+
+resource "google_firestore_document" "extra_admin" {
+  database    = google_firestore_database.database.name
+  collection  = "admin"
+  document_id = "kaitlynstone1@gmail.com"
+
+  fields = jsonencode({
+    email = {
+      stringValue = "kaitlynstone1@gmail.com"
+    }
+  })
+}
