@@ -3,7 +3,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "remix build",
-    "dev": "remix dev",
+    "dev": "dotenv -- remix dev",
     "deploy": "fly deploy --remote-only",
     "start": "remix-serve build/index.js",
     "typecheck": "tsc"
@@ -33,6 +33,7 @@
     "@types/react-dom": "^18.2.18",
     "@types/react-pdf": "^6.2.0",
     "concurrently": "^7.6.0",
+    "dotenv-cli": "^7.4.2",
     "eslint": "^8.27.0",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.1.6"

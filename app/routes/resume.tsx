@@ -91,11 +91,26 @@ export default function Resume() {
           <br/><br/>
           While here, I've headed numerous impactful efforts.
           <ul className="list-disc ml-8">
-            <li>I completely rebuilt our frontend app, taking our old Angular 1 MVP and turning it into a
-                scalable, responsive, and modern React web app. And I did that in less than 6 months
-                without ever having written in React in my life.</li>
-            <li>I built our Public facing API from scratch, using AWS serverless services such as Lambda
-                and API Gateway.</li>
+            <li>
+              I completely rebuilt our frontend app, taking our old Angular 1 MVP and turning it into a
+              scalable, responsive, and modern React web app. And I did that in less than 6 months
+              without ever having written in React in my life.
+            </li>
+            <li>
+              I built our Public facing API from scratch, using AWS serverless services such as Lambda
+              and API Gateway. And this API still exists and handles millions of calls a day from our
+              enterprise clients.
+            </li>
+            <li>
+              I built an end-to-end ETL pipeline for ingesting, parsing, and transforming cryptocurrency
+              trading data from numerous sources. This included proper logging and monitoring, scaling to
+              essentially infinite concurrent syncs, and building a scalable API layer for our consuming
+              services.
+            </li>
+            <li>
+              Implemented the first service at TaxBit with a full CI/CD pipeline with zero touch points
+              from merge to deploy.
+            </li>
           </ul>
           My coworkers sometimes like to call me Swiss (short for Swiss Army Knife) because there isn't much
           I can't tackle.
