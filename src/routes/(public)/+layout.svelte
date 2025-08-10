@@ -23,6 +23,13 @@
   function hideMenu() {
     menuOpen = false;
   }
+
+  function handleKeyPress(event: KeyboardEvent, action: () => void) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      action();
+    }
+  }
 </script>
 
 <div class="font-sans">
@@ -39,7 +46,16 @@
         <Typewriter
           strings={['a Husband', 'a Father', 'a Code Ninja', 'a World Traveler']}
         />
-        <ChevronDown class="cursor-pointer" height="96" width="96" onclick={scrollToHeader} />
+        <ChevronDown
+          class="cursor-pointer"
+          height="96"
+          width="96"
+          onclick={scrollToHeader}
+          onkeydown={(e) => handleKeyPress(e, scrollToHeader)}
+          role="button"
+          tabindex={0}
+          aria-label="Scroll to navigation"
+        />
       </div>
     </div>
     <div class="flex text-white w-full items-center sticky top-0 z-50 bg-skalex" style="background: #32a852" bind:this={headerRef}>
@@ -54,12 +70,27 @@
         </div>
         <div class="lg:hidden">
           <Hamburger onclick={showMenu} class="float-right cursor-pointer" />
-          <div onclick={hideMenu} class={`fixed box-border h-screen w-fit top-0 m-0 bg-skalex duration-500 transition-[right] z-20 ${menuOpen ? 'right-0' : '-right-[100vw]'}`}>
+          <div
+            onclick={hideMenu}
+            onkeydown={(e) => handleKeyPress(e, hideMenu)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation menu"
+            tabindex={0}
+            class={`fixed box-border h-screen w-fit top-0 m-0 bg-skalex duration-500 transition-[right] z-20 ${menuOpen ? 'right-0' : '-right-[100vw]'}`}
+          >
             <HeaderLink href={'/'} name={'About Me'} block />
             <HeaderLink href={'/resume'} name={'Resume'} block />
             <HeaderLink href={'/portfolio'} name={'Portfolio'} block />
           </div>
-          <div onclick={hideMenu} class={`fixed h-screen w-screen inset-0 m-0 opacity-50 bg-black z-10 ${menuOpen ? 'block' : 'hidden'}`}></div>
+          <div
+            onclick={hideMenu}
+            onkeydown={(e) => handleKeyPress(e, hideMenu)}
+            role="button"
+            aria-label="Close mobile menu"
+            tabindex={0}
+            class={`fixed h-screen w-screen inset-0 m-0 opacity-50 bg-black z-10 ${menuOpen ? 'block' : 'hidden'}`}
+          ></div>
         </div>
       </div>
     </div>
