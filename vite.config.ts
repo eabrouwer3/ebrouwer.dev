@@ -7,6 +7,10 @@ export default defineConfig({
 	plugins: [tailwindcss(), sveltekit(), devtoolsJson()],
 	optimizeDeps: { exclude: ['@lucide/svelte', '@lucide/lab'] },
 	esbuild: { supported: { 'top-level-await': true } },
+	ssr: {
+		// External packages that need Node.js globals should not be bundled
+		external: ['@google-cloud/compute']
+	},
 	build: {
 		rollupOptions: {
 			output: {

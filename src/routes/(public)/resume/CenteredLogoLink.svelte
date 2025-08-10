@@ -9,7 +9,7 @@
 </script>
 
 <div class="flex justify-center px-8 py-4 lg:py-2 object-cover">
-  <a href={href} class="w-1/3">
+  <a href={href}>
     <img src={img} alt={alt} class="w-full"/>
   </a>
 </div>
