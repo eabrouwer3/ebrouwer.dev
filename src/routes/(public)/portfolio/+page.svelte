@@ -14,14 +14,21 @@
 <div class="flex justify-center">
   <div class="grow">
     <GitHubCard name={'This Website!'} repo={'eabrouwer3/ebrouwer.dev'}>
-      Recently I rewrote this website using <ExternalLink href={'https://remix.run'}>Remix</ExternalLink> and
-      absolutely loved it. Some other technologies I learned about and worked with include:
+      The latest iteration of my website was created using <ExternalLink href={'https://svelte.dev/'}>SvelteKit</ExternalLink>.
+      I really liked using a full-stack framework
+      like <ExternalLink href={'https://remix.run'}>Remix</ExternalLink>/<ExternalLink href={'https://reactrouter.com/'}>React Router v7</ExternalLink> because
+      it meant my frontend and backend code was all colocated with shared types. However, there were a few clunky
+      parts when it came to migrating from Remix v1 to React Router v7 after they merged the projects. I had heard
+      a lot of good things about Svelte, so I decided to give it a try. While I initially wasn't a fan of using
+      template files, it kind of all came together in a really nice way and I'm pretty darn happy with how it turned out.
+      <br/>
+      <br/>
+      Other technologies I used include:
       <ul class="list-disc list-inside">
-        <li><ExternalLink href={'https://tailwindcss.com/'}>TailwindCSS</ExternalLink> for Styling</li>
-        <li><ExternalLink href={'https://fly.io'}>Fly.io</ExternalLink> for Hosting</li>
-        <li><ExternalLink href={'https://resend.com'}>Resend</ExternalLink> for sending Emails</li>
-        <li><ExternalLink href={'https://cloud.google.com/firestore'}>GCP Firestore</ExternalLink> for storing TOTP codes</li>
-        <li><ExternalLink href={'https://cloud.google.com/products/compute'}>GCP Compute</ExternalLink> for running Minecraft servers</li>
+        <li><ExternalLink href={'https://railway.com/'}>Railway</ExternalLink> for hosting</li>
+        <li><ExternalLink href={'https://www.tailwindcss.com/'}>TailwindCSS</ExternalLink> for styling</li>
+        <li><ExternalLink href={'https://orm.drizzle.team/'}>Drizzle ORM</ExternalLink> for database interactions with postgres</li>
+        <li><ExternalLink href={'https://shadcn-svelte.com/'}>Shadcn Svelte</ExternalLink> for UI components in the admin section</li>
       </ul>
     </GitHubCard>
     <GitHubCard name={'Airbyte Terraform Provider'} repo={'eabrouwer3/terraform-provider-airbyte'}>
@@ -40,6 +47,29 @@
       and a half learning Go and building a Terraform provider to manage our connections/connectors alongside
       our IaC. It quickly gained popularity, and pretty quickly the Airbyte team realized it's usefulness and
       took over with building their own terraform provider.
+    </GitHubCard>
+    <SummaryCard page={'/portfolio/racing-game'} name={'Racing Game'}>
+      My brothers visited recently and I decided to show them the joys of "Vibe Coding". (See tweet below)
+      <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" align="center"><p lang="en" dir="ltr">There&#39;s a new kind of coding I call &quot;vibe coding&quot;, where you fully give in to the vibes, embrace exponentials, and forget that the code even exists. It&#39;s possible because the LLMs (e.g. Cursor Composer w Sonnet) are getting too good. Also I just talk to Composer with SuperWhisper…</p>&mdash; Andrej Karpathy (@karpathy) <a href="https://twitter.com/karpathy/status/1886192184808149383?ref_src=twsrc%5Etfw">February 2, 2025</a></blockquote>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      One of my brothers decided we should make a Lightning McQueen Racing Game. So, one prompt at a time,
+      we build a simple racing game. I might continue to tweak it here and there, and maybe even add a remote
+      multiplayer version someday.
+      <br/>
+      <br/>
+      We used <ExternalLink href={'https://cursor.com/en'}>Cursor</ExternalLink> with
+      the <ExternalLink href={'https://www.anthropic.com/claude/sonnet'}>Claude Sonnet 4</ExternalLink> model.
+    </SummaryCard>
+    <GitHubCard name={'ebrouwer.dev v2'} repo={'eabrouwer3/ebrouwer.dev/tree/remix'}>
+      The second iteration of this website was written using <ExternalLink href={'https://remix.run'}>Remix</ExternalLink> and
+      I really enjoyed it. Some other technologies I learned about and worked with include:
+      <ul class="list-disc list-inside">
+        <li><ExternalLink href={'https://tailwindcss.com/'}>TailwindCSS</ExternalLink> for Styling</li>
+        <li><ExternalLink href={'https://fly.io'}>Fly.io</ExternalLink> for Hosting</li>
+        <li><ExternalLink href={'https://resend.com'}>Resend</ExternalLink> for sending Emails</li>
+        <li><ExternalLink href={'https://cloud.google.com/firestore'}>GCP Firestore</ExternalLink> for storing TOTP codes</li>
+        <li><ExternalLink href={'https://cloud.google.com/products/compute'}>GCP Compute</ExternalLink> for running Minecraft servers</li>
+      </ul>
     </GitHubCard>
     <GitHubCard name={'ebrouwer.dev v1'} repo={'eabrouwer3/ebrouwer.dev/tree/static-react'}>
       I've gone through a number of websites over the years. Before this iteration, I built it with Wordpress

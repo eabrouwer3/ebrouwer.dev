@@ -1,0 +1,95 @@
+
+<div class="game-container">
+    <h1>Lightning McQueen Racing ⚡</h1>
+
+    <!-- Starting Screen -->
+    <div id="startScreen" class="start-screen">
+        <div class="start-content">
+            <h2>Configure Your Race</h2>
+
+            <div class="setting-group">
+                <label for="gameMode">Game Mode:</label>
+                <select id="gameMode" class="setting-input">
+                    <option value="single" selected>Single Player - You vs AI</option>
+                    <option value="pvp">Local PvP - Two players on same device</option>
+                </select>
+            </div>
+
+            <div class="setting-group">
+                <label for="difficulty">Difficulty:</label>
+                <select id="difficulty" class="setting-input">
+                    <option value="easy">Easy - Relaxed opponents</option>
+                    <option value="medium" selected>Medium - Competitive racing</option>
+                    <option value="hard">Hard - Fast & aggressive racers</option>
+                    <option value="extreme">Extreme - Championship level</option>
+                </select>
+            </div>
+
+            <div class="setting-group">
+                <label for="lapCount">Number of Laps:</label>
+                <select id="lapCount" class="setting-input">
+                    <option value="3">3 Laps - Quick race</option>
+                    <option value="5">5 Laps - Standard race</option>
+                    <option value="10" selected>10 Laps - Full race</option>
+                    <option value="20">20 Laps - Endurance race</option>
+                </select>
+            </div>
+
+            <button id="startRaceBtn" class="start-btn">START RACE</button>
+
+            <div class="difficulty-info">
+                <h3>Difficulty Details:</h3>
+                <div class="difficulty-desc">
+                    <strong>Easy:</strong> AI cars are slower and make more mistakes<br>
+                    <strong>Medium:</strong> Balanced competition with occasional mistakes<br>
+                    <strong>Hard:</strong> Fast AI cars with aggressive racing<br>
+                    <strong>Extreme:</strong> Lightning-fast cars with perfect racing lines
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Racer Selection Screen (initially hidden) -->
+    <div id="racerScreen" class="racer-screen" style="display: none;">
+        <div class="racer-content">
+            <h2>Choose Your Racer(s)</h2>
+            <p class="selection-info" id="selectionInfo">
+                <!-- Selection info will be dynamically updated based on game mode -->
+            </p>
+
+            <div class="selected-racers">
+                <h3 id="lineupTitle">Race Lineup (<span id="selectedCount">0</span>/<span id="totalRacers">6</span>)</h3>
+                <div id="selectedList" class="selected-list"></div>
+            </div>
+
+            <div class="available-racers">
+                <h3>Available Racers</h3>
+                <div id="racerGrid" class="racer-grid"></div>
+            </div>
+
+            <div class="racer-controls">
+                <button id="clearSelectionBtn" class="control-btn secondary">Clear</button>
+                <button id="randomSelectionBtn" class="control-btn secondary">Random Pick</button>
+                <button id="backToStartBtn" class="control-btn secondary">Back</button>
+                <button id="startRaceFromSelectionBtn" class="control-btn primary" disabled>Start Race</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen (initially hidden) -->
+    <div id="gameScreen" class="game-screen" style="display: none;">
+        <div class="controls-info" id="controlsInfo">
+            <!-- Controls text will be dynamically updated based on game mode -->
+        </div>
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div class="game-info">
+            <div class="info-panel" id="infoPanel">
+                <!-- Info panel content will be dynamically updated based on game mode -->
+            </div>
+            <div class="leaderboard" id="leaderboard">
+                <h3>Race Standings</h3>
+                <div id="standings"></div>
+            </div>
+        </div>
+    </div>
+</div>

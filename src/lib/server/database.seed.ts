@@ -1,5 +1,3 @@
-import { eq } from "drizzle-orm";
-
 import { db } from "./database.js";
 import { gameServers, user } from "./database.schema.js";
 

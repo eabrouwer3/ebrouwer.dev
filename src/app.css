@@ -2,6 +2,21 @@
 
 @import "tw-animate-css";
 
+@theme {
+  --font-header: 'Lato', sans-serif;
+  --font-sans: 'Roboto', sans-serif;
+  --font-mono: 'Source Code Pro', monospace;
+
+  --color-skalex: #32a852;
+  --color-hover-link: #1c5ddd;
+  --color-link: #3071f1;
+
+  --spacing-9.5: 2.375rem;
+  --spacing-16.5: 4.125rem;
+  --spacing-17: 4.25rem;
+  --spacing-18: 4.5rem;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 :root {

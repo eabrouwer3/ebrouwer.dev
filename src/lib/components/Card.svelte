@@ -34,11 +34,11 @@
         </a>
       {/if}
     {/if}
-    <p class="mt-2.5 mb-0">
+    <div class="mt-2.5 mb-0">
       {#if img}
         <img class="w-1/4 float-left hidden lg:block mr-4 ml-2 my-2" src={img} alt={title} />
       {/if}
       {@render children?.()}
-    </p>
+    </div>
   </div>
 </div>
