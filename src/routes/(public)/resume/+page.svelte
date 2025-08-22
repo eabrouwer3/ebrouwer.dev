@@ -11,7 +11,7 @@
   import perfectPitchLogo from "$lib/assets/images/perfectpitch-logo.png";
   import byuLogo from "$lib/assets/images/byu-logo-blue.png";
 
-  import resumePDF from "$lib/assets/documents/resume.pdf";
+  import resumePDF from "$lib/assets/documents/Ethan Brouwer Resume.pdf";
 </script>
 
 <div class="flex pb-6 pt-12">
