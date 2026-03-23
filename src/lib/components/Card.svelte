@@ -29,7 +29,7 @@
           {link.href}
         </a>
       {:else}
-        <a class="inline-block text-sm no-underline font-header text-gray-400 focus:text-gray-400 visited:text-gray-400	hover:text-gray-600" href={link.href}  rel="noopener noreferrer" target={'_blank'}>
+        <a class="inline-block text-sm no-underline font-header text-gray-400 focus:text-gray-400 visited:text-gray-400	hover:text-gray-600" href={link.href}  rel="noopener noreferrer" target='_blank'>
           {link.text} <sup><Share class="text-xs inline w-3"/></sup>
         </a>
       {/if}

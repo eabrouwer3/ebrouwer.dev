@@ -8,6 +8,7 @@
   import SunIcon from "@lucide/svelte/icons/sun";
   import MoonIcon from "@lucide/svelte/icons/moon";
   import EllipsisVerticalIcon from "@lucide/svelte/icons/ellipsis-vertical";
+  import Ellipsis from "@lucide/svelte/icons/ellipsis";
   import LogoutIcon from "@lucide/svelte/icons/log-out";
   import GamepadIcon from "@lucide/svelte/icons/gamepad-2";
   import HouseIcon from "@lucide/svelte/icons/house";
@@ -86,6 +87,20 @@
                   </a>
                 {/snippet}
               </Sidebar.MenuButton>
+							<DropdownMenu.Root>
+								<DropdownMenu.Trigger>
+									{#snippet child({ props })}
+										<Sidebar.MenuAction {...props}>
+											<Ellipsis />
+										</Sidebar.MenuAction>
+									{/snippet}
+								</DropdownMenu.Trigger>
+								<DropdownMenu.Content side="right" align="start">
+									<DropdownMenu.Item on:click={() => goto('/admin/games/new')}>
+										<span>New</span>
+									</DropdownMenu.Item>
+								</DropdownMenu.Content>
+							</DropdownMenu.Root>
             </Sidebar.MenuItem>
           </Sidebar.Menu>
         </Sidebar.GroupContent>

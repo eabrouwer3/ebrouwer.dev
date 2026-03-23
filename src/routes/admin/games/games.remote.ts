@@ -1,9 +1,10 @@
 import { db } from '$lib/server/database.js';
-import { GameServerStatus, getInstance, resumeInstance, startInstance, stopInstance } from '$lib/server/games.js';
+import { InstanceStatus, getInstance, resumeInstance, startInstance, stopInstance, minecraftServerOptions } from '$lib/server/gcp-compute.js';
 import { addSubdomain, deleteSubdomain } from '$lib/server/porkbun.js';
 import { gameServers } from '$lib/server/database.schema.js';
 import { z } from "zod/v4";
 import { getUserIfLoggedIn } from '$lib/utils/remote-functions.js';
+import { eq } from 'drizzle-orm';
 import { form, query } from '$app/server';
 
 export const listGameServers = query(async () => {
@@ -15,17 +16,32 @@ export const listGameServers = query(async () => {
       const vmInstance = await getInstance(server.instanceName);
       return {
         ...server,
-        status: vmInstance.status as GameServerStatus,
+        status: vmInstance.status as InstanceStatus,
         vmInstance,
       }
-    } catch (error) {
+    } catch {
       return {
         ...server,
-        status: GameServerStatus.Undefined,
+        status: InstanceStatus.Undefined,
         vmInstance: null,
       }
     }
   }));
+})
+
+export const getGameServer = query(z.string(), async (instanceName: string) => {
+	getUserIfLoggedIn();
+
+	const servers = await db.select().from(gameServers).where(eq(gameServers.instanceName, instanceName)).limit(1);
+	if (servers.length > 0) {
+		const vmInstance = await getInstance(servers[0].instanceName);
+		return {
+			...servers[0],
+			status: vmInstance.status as InstanceStatus,
+			vmInstance,
+		}
+	}
+	return null;
 })
 
 const manageServerArgs = z.object({
@@ -60,5 +76,33 @@ export const manageServer = form(async (data: FormData) => {
     await deleteSubdomain(subdomain.toString());
   }
 
-  listGameServers().refresh();
+  await listGameServers().refresh();
+})
+
+const newServerArgs = z.object({
+	instanceName: z.string(),
+	subdomain: z.string(),
+	instanceConfig: z.object({
+		machineType: z.string(),
+	})
+}).and(z.discriminatedUnion('game', [
+	z.object({
+		game: z.literal('minecraft'),
+		options: minecraftServerOptions,
+	}),
+]))
+
+export const createServer = form(async (data: FormData) => {
+	getUserIfLoggedIn();
+
+	const { game, instanceName, subdomain, options } = newServerArgs.parse(Object.fromEntries(data.entries()));
+
+	switch (game) {
+		case 'minecraft': {
+			// Create the database entry
+
+			// Create the GCP instance
+
+		}
+	}
 })
